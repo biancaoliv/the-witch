@@ -3,18 +3,17 @@ class_name Player extends CharacterBody2D
 # Direção e movimentação
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
-var move_speed : float = 100.0
 
-# Estado atual da animação
-var state : String = "idle"
 
 # Referências aos nós
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var state_machine : PlayerStateMachine = $StateMachine
 
 
 # Inicialização
-func _ready() -> void:
+func _ready():
+	state_machine.Initialize(self)
 	pass
 
 
@@ -23,11 +22,6 @@ func _process(delta: float) -> void:
 
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
-
-	velocity = direction * move_speed
-
-	if SetState() == true || SetDirection() == true:
-		UpdateAnimation()
 
 
 # Move o personagem utilizando a física da Godot
@@ -58,19 +52,10 @@ func SetDirection() -> bool:
 	return true
 
 
-# Atualiza o estado (idle ou walk)
-func SetState() -> bool:
-	var new_state : String = "idle" if direction == Vector2.ZERO else "walk"
-
-	if new_state == state:
-		return false
-
-	state = new_state
-	return true
 
 
 # Reproduz a animação correspondente ao estado e direção
-func UpdateAnimation() -> void:
+func UpdateAnimation( state : String) -> void:
 	animation_player.play(state + "_" + AnimDirection())
 
 

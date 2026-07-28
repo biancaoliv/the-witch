@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cmtjjr2edf6yt" path="res://Player/scripts/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://ds1vk4y3lgfjm" path="res://Player/Sprites/ExamplePlayerSprite.png" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://eqohnjp4123h" path="res://Player/scripts/player_state_machine.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://tlb24j6hfqoq" path="res://Player/scripts/state_idle.gd" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://d26x6c715kieu" path="res://Player/scripts/state_walk.gd" id="5_k53q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 
@@ -22,7 +25,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_btcbx"]
 resource_name = "idle_down"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -39,7 +42,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_gwnis"]
 resource_name = "idle_side"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -56,7 +59,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_k53q1"]
 resource_name = "idle_up"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -148,3 +151,12 @@ hframes = 21
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=696863854]
 libraries/ = SubResource("AnimationLibrary_gwnis")
+
+[node name="StateMachine" type="Node" parent="." unique_id=121457123]
+script = ExtResource("3_btcbx")
+
+[node name="idle" type="Node" parent="StateMachine" unique_id=1655445283]
+script = ExtResource("4_gwnis")
+
+[node name="walk" type="Node" parent="StateMachine" unique_id=1506197702]
+script = ExtResource("5_k53q1")
