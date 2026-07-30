@@ -137,7 +137,9 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=685778031]
-position = Vector2(1, 0)
+collision_mask = 18
+motion_mode = 1
+wall_min_slide_angle = 0.17453292
 script = ExtResource("1_4ntmi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1612813401]
@@ -145,7 +147,7 @@ shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1157001115]
 texture_filter = 1
-position = Vector2(1, -21)
+position = Vector2(1, -16)
 texture = ExtResource("1_l8h54")
 hframes = 21
 
@@ -160,3 +162,5 @@ script = ExtResource("4_gwnis")
 
 [node name="walk" type="Node" parent="StateMachine" unique_id=1506197702]
 script = ExtResource("5_k53q1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=215843593]
