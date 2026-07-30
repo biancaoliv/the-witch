@@ -10,19 +10,19 @@ config_version=5
 
 [application]
 
-config/name="the_witch"
-run/main_scene="res://playground.tscn"
+config/name="The Witch"
+run/main_scene="res://world/farm/farm.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=480
 window/size/viewport_height=270
-window/size/window_width_override=1920
-window/size/window_height_override=1080
+window/size/window_width_override=1440
+window/size/window_height_override=810
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [input]
 
@@ -53,9 +53,9 @@ right={
 
 [layer_names]
 
-2d_physics/layer_1="Player"
-2d_physics/layer_2="Home"
-2d_physics/layer_5="Walls"
+2d_physics/layer_1="World"
+2d_physics/layer_2="Objects"
+2d_physics/layer_9="Player"
 
 [physics]
 
