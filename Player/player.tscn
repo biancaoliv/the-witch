@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmtjjr2edf6yt" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://ds1vk4y3lgfjm" path="res://Player/sprites/player_sprite.png" id="2_k53q1"]
-[ext_resource type="Script" uid="uid://tlb24j6hfqoq" path="res://Player/states/idle.gd" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://tlb24j6hfqoq" path="res://player/states/idle.gd" id="4_gwnis"]
 [ext_resource type="Script" uid="uid://d26x6c715kieu" path="res://Player/states/walk.gd" id="5_k53q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
@@ -156,9 +156,11 @@ texture = ExtResource("2_k53q1")
 hframes = 21
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1612813401]
+position = Vector2(2, 0)
 shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=696863854]
 libraries/ = SubResource("AnimationLibrary_gwnis")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=215843593]
+position = Vector2(2, 0)
