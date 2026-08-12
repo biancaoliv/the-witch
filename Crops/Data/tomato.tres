@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://bp3rhed4jbf13"]
+
+[ext_resource type="Script" uid="uid://dhbu6mh2dbyc2" path="res://Crops/CropData.gd" id="1_mcqxc"]
+[ext_resource type="Texture2D" uid="uid://t14y61adhkln" path="res://assets/tilesets/farming_crops.png" id="2_u18b4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_na65e"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gb5x"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfh4u"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8inb"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0ivk"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edbkp"]
+atlas = ExtResource("2_u18b4")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yf5fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_na65e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gb5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfh4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8inb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0ivk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edbkp")
+}],
+"loop": 1,
+"name": &"tomato",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_mcqxc")
+crop_name = "tomato"
+sprite_frames = SubResource("SpriteFrames_yf5fn")
+metadata/_custom_type_script = "uid://dhbu6mh2dbyc2"

@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cn8gptgbqvp0v"]
+
+[ext_resource type="Script" uid="uid://ci6sulmjbf5tn" path="res://Crops/crop.gd" id="1_bhnnd"]
+[ext_resource type="Texture2D" uid="uid://t14y61adhkln" path="res://assets/tilesets/farming_crops.png" id="2_xw61u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(14, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhnnd"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(80, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw61u"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(64, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcfoc"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(48, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqce0"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(32, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek2u5"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(16, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bf75"]
+atlas = ExtResource("2_xw61u")
+region = Rect2(0, 144, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yf5fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhnnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw61u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcfoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqce0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ek2u5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bf75")
+}],
+"loop": 1,
+"name": &"corn",
+"speed": 5.0
+}]
+
+[node name="corn" type="Node2D" unique_id=1253611088]
+script = ExtResource("1_bhnnd")
+
+[node name="CropArea" type="Area2D" parent="." unique_id=509995840]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CropArea" unique_id=1591821539]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="CropSprite" type="AnimatedSprite2D" parent="CropArea" unique_id=2061037647]
+sprite_frames = SubResource("SpriteFrames_yf5fn")
+animation = &"corn"
+
+[connection signal="body_entered" from="CropArea" to="." method="_on_crop_area_body_entered"]
+[connection signal="body_exited" from="CropArea" to="." method="_on_crop_area_body_exited"]

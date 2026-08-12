@@ -9,5 +9,4 @@ func physics_update(_delta: float) -> void:
 	if player.is_moving():
 		player.change_state("walk")
 		return
-
 	player.velocity = Vector2.ZERO

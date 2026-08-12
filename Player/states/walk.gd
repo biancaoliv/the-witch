@@ -3,7 +3,7 @@ extends PlayerState
 @export var move_speed: float = 100.0
 
 # O que acontece quando o jogador entra nesse estado?
-func Enter() -> void:
+func enter() -> void:
 	player.update_animation("walk")
 
 
