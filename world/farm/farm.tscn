@@ -5,8 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://cxvxa3s2r5uyj" path="res://assets/tilesets/spring_props.png" id="3_m8u5f"]
 [ext_resource type="TileSet" uid="uid://dhw62oonw5xix" path="res://world/tilesets/sprint_props.tres" id="4_0jo3b"]
 [ext_resource type="Resource" uid="uid://dtfyhyv86khj8" path="res://Crops/Data/corn.tres" id="6_02d13"]
-[ext_resource type="PackedScene" uid="uid://c3xvk45bjfjed" path="res://Crops/crop.tscn" id="6_mabmt"]
 [ext_resource type="Resource" uid="uid://bhtycd4j0qm51" path="res://Crops/Data/beet.tres" id="7_mabmt"]
+[ext_resource type="Script" uid="uid://cbvvlkilo4bl1" path="res://world/farm/farm_grid.gd" id="8_02d13"]
+[ext_resource type="Texture2D" uid="uid://c4fu0cug3xkfx" path="res://assets/tilesets/square.png" id="9_4e86w"]
+[ext_resource type="PackedScene" uid="uid://bvmknu7r2lxj2" path="res://seed/seed_station.tscn" id="10_8l0q7"]
+[ext_resource type="Resource" uid="uid://bp3rhed4jbf13" path="res://Crops/Data/tomato.tres" id="11_cnq3x"]
 
 [sub_resource type="GDScript" id="GDScript_rupst"]
 script/source = "extends Node2D
@@ -449,7 +452,7 @@ script = SubResource("GDScript_rupst")
 [node name="Player" parent="." unique_id=685778031 instance=ExtResource("1_rupst")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(367, 372)
+position = Vector2(413, 504)
 
 [node name="Ground" type="TileMapLayer" parent="." unique_id=864800123]
 z_index = -5
@@ -499,13 +502,26 @@ tile_map_data = PackedByteArray("AABEACYAAAAGAAgAAABFACYAAAAGAAgAAABGACYAAAAGAAg
 tile_set = SubResource("TileSet_mabmt")
 metadata/_edit_lock_ = true
 
-[node name="TomatoCrop" parent="." unique_id=1253611088 instance=ExtResource("6_mabmt")]
-position = Vector2(304, 400)
+[node name="FarmSoil" type="TileMapLayer" parent="." unique_id=26305241]
+tile_map_data = PackedByteArray("AAASACQAAAAAAAsAAAASACUAAAAAAAwAAAATACQAAAABAAsAAAATACUAAAABAAwAAAAUACQAAAAAAAsAAAAUACUAAAAAAAwAAAAVACQAAAABAAsAAAAVACUAAAABAAwAAAASACYAAAAAAAsAAAASACcAAAAAAAwAAAATACYAAAABAAsAAAATACcAAAABAAwAAAAUACYAAAAAAAsAAAAUACcAAAAAAAwAAAAVACYAAAABAAsAAAAVACcAAAABAAwAAAAYACQAAAAAAAsAAAAYACUAAAAAAAwAAAAZACQAAAABAAsAAAAZACUAAAABAAwAAAAYACYAAAAAAAsAAAAYACcAAAAAAAwAAAAZACYAAAABAAsAAAAZACcAAAABAAwAAAAaACYAAAAAAAsAAAAaACcAAAAAAAwAAAAbACYAAAABAAsAAAAbACcAAAABAAwAAAAaACQAAAAAAAsAAAAaACUAAAAAAAwAAAAbACQAAAABAAsAAAAbACUAAAABAAwAAAAeACQAAAAAAAsAAAAeACUAAAAAAAwAAAAfACQAAAABAAsAAAAfACUAAAABAAwAAAAeACYAAAAAAAsAAAAeACcAAAAAAAwAAAAfACYAAAABAAsAAAAfACcAAAABAAwAAAAgACQAAAAAAAsAAAAgACUAAAAAAAwAAAAhACQAAAABAAsAAAAhACUAAAABAAwAAAAgACYAAAAAAAsAAAAgACcAAAAAAAwAAAAhACYAAAABAAsAAAAhACcAAAABAAwAAAA=")
+tile_set = ExtResource("2_3xvbo")
+metadata/_edit_lock_ = true
 
-[node name="CornCrop" parent="." unique_id=1557813126 instance=ExtResource("6_mabmt")]
-position = Vector2(336, 400)
+[node name="FarmGrid" type="Node2D" parent="." unique_id=1490104932 groups=["farm_grid"]]
+script = ExtResource("8_02d13")
+
+[node name="GridCursor" type="Sprite2D" parent="." unique_id=588078466]
+position = Vector2(0, -5)
+texture = ExtResource("9_4e86w")
+
+[node name="TomatoStation" parent="." unique_id=264408607 instance=ExtResource("10_8l0q7")]
+position = Vector2(511, 547)
+crop_data = ExtResource("11_cnq3x")
+
+[node name="CornStation" parent="." unique_id=1827926451 instance=ExtResource("10_8l0q7")]
+position = Vector2(416, 547)
 crop_data = ExtResource("6_02d13")
 
-[node name="BeetCrop" parent="." unique_id=424679019 instance=ExtResource("6_mabmt")]
-position = Vector2(369, 400)
+[node name="BeetStation2" parent="." unique_id=503755438 instance=ExtResource("10_8l0q7")]
+position = Vector2(320, 547)
 crop_data = ExtResource("7_mabmt")

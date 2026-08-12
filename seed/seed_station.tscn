@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bvmknu7r2lxj2"]
+
+[ext_resource type="Script" uid="uid://d2gjlyp7sogec" path="res://seed/seed_station.gd" id="1_i50c5"]
+[ext_resource type="Texture2D" uid="uid://bat24ldu2o2ae" path="res://assets/tilesets/bag.png" id="2_phg6k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+
+[node name="Area2D" type="Area2D" unique_id=1827926451]
+script = ExtResource("1_i50c5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1578434996]
+texture = ExtResource("2_phg6k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2130613885]
+shape = SubResource("CircleShape2D_g4v7s")
