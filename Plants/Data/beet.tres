@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="PlantData" format=3 uid="uid://cim20p2s268tg"]
+
+[ext_resource type="Script" uid="uid://mcqljbdwwb5j" path="res://Plants/Data/plant_data.gd" id="1_ivhxv"]
+[ext_resource type="Texture2D" uid="uid://t14y61adhkln" path="res://assets/tilesets/farming_crops.png" id="2_ojoh6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wevx2"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbudp"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx0l1"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e84sn"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8fbm"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibd5t"]
+atlas = ExtResource("2_ojoh6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_epi08"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wevx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbudp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx0l1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e84sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8fbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibd5t")
+}],
+"loop": 1,
+"name": &"beet",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_ivhxv")
+plant_name = "beet"
+sprite_frames = SubResource("SpriteFrames_epi08")
+metadata/_custom_type_script = "uid://mcqljbdwwb5j"

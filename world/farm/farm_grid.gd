@@ -28,26 +28,6 @@ func _process(_delta: float) -> void:
 	var cell := get_player_cell()
 	update_cursor(cell)
 
-	# Seleção manual rápida de sementes via teclado
-	_handle_seed_selection()
-
-	# Planta ao pressionar "space" se a célula for fértil e estiver livre
-	if Input.is_action_just_pressed("space"):
-		if can_plant(cell) and not cell in planted_crops:
-			plant_crop(cell)
-
-
-func _handle_seed_selection() -> void:
-	if Input.is_key_pressed(KEY_1):
-		selected_seed = tomato_data
-		print("Semente equipada: Tomate")
-	elif Input.is_key_pressed(KEY_2):
-		selected_seed = corn_data
-		print("Semente equipada: Milho")
-	elif Input.is_key_pressed(KEY_3):
-		selected_seed = beet_data
-		print("Semente equipada: Beterraba")
-
 
 func get_player_cell() -> Vector2i:
 	var local_position := farm_soil.to_local(player.global_position)
@@ -55,6 +35,9 @@ func get_player_cell() -> Vector2i:
 	var direction := Vector2i(player.cardinal_direction)
 
 	return cell + direction
+
+func get_target_cell() -> Vector2i:
+	return get_player_cell()
 
 
 func can_plant(cell: Vector2i) -> bool:
@@ -102,3 +85,4 @@ func remove_crop_at_position(global_pos: Vector2) -> void:
 	if cell in planted_crops:
 		planted_crops.erase(cell)
 		print("Célula liberada no grid: ", cell)
+

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ub5g21hts3sx"]
+
+[ext_resource type="Script" uid="uid://dobrrgrpmq6rt" path="res://Plants/plant.gd" id="1_bicjr"]
+
+[node name="Plant" type="Node2D" unique_id=1947245174]
+script = ExtResource("1_bicjr")
+
+[node name="PlantSprite" type="AnimatedSprite2D" parent="." unique_id=206701355]

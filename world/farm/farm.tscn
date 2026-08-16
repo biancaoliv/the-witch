@@ -4,12 +4,14 @@
 [ext_resource type="TileSet" uid="uid://bgnmuyxbwib6i" path="res://world/tilesets/spring_tiles.tres" id="2_3xvbo"]
 [ext_resource type="Texture2D" uid="uid://cxvxa3s2r5uyj" path="res://assets/tilesets/spring_props.png" id="3_m8u5f"]
 [ext_resource type="TileSet" uid="uid://dhw62oonw5xix" path="res://world/tilesets/sprint_props.tres" id="4_0jo3b"]
-[ext_resource type="Resource" uid="uid://dtfyhyv86khj8" path="res://Crops/Data/corn.tres" id="6_02d13"]
-[ext_resource type="Resource" uid="uid://bhtycd4j0qm51" path="res://Crops/Data/beet.tres" id="7_mabmt"]
 [ext_resource type="Script" uid="uid://cbvvlkilo4bl1" path="res://world/farm/farm_grid.gd" id="8_02d13"]
 [ext_resource type="Texture2D" uid="uid://c4fu0cug3xkfx" path="res://assets/tilesets/square.png" id="9_4e86w"]
+[ext_resource type="Resource" uid="uid://b1dqaxo7ud03j" path="res://Plants/Data/corn.tres" id="9_cpevx"]
+[ext_resource type="Resource" uid="uid://cim20p2s268tg" path="res://Plants/Data/beet.tres" id="10_6evid"]
 [ext_resource type="PackedScene" uid="uid://bvmknu7r2lxj2" path="res://seed/seed_station.tscn" id="10_8l0q7"]
-[ext_resource type="Resource" uid="uid://bp3rhed4jbf13" path="res://Crops/Data/tomato.tres" id="11_cnq3x"]
+[ext_resource type="Script" uid="uid://ccc6ju6ctqqa2" path="res://Plants/plant_system.gd" id="11_cpevx"]
+[ext_resource type="PackedScene" uid="uid://ub5g21hts3sx" path="res://Plants/Plant.tscn" id="12_cpevx"]
+[ext_resource type="Resource" uid="uid://bh60lc1g6v0y7" path="res://Plants/Data/tomato.tres" id="13_6evid"]
 
 [sub_resource type="GDScript" id="GDScript_rupst"]
 script/source = "extends Node2D
@@ -516,12 +518,16 @@ texture = ExtResource("9_4e86w")
 
 [node name="TomatoStation" parent="." unique_id=264408607 instance=ExtResource("10_8l0q7")]
 position = Vector2(511, 547)
-crop_data = ExtResource("11_cnq3x")
+plant_data = ExtResource("13_6evid")
 
 [node name="CornStation" parent="." unique_id=1827926451 instance=ExtResource("10_8l0q7")]
 position = Vector2(416, 547)
-crop_data = ExtResource("6_02d13")
+plant_data = ExtResource("9_cpevx")
 
-[node name="BeetStation2" parent="." unique_id=503755438 instance=ExtResource("10_8l0q7")]
+[node name="BeetStation" parent="." unique_id=503755438 instance=ExtResource("10_8l0q7")]
 position = Vector2(320, 547)
-crop_data = ExtResource("7_mabmt")
+plant_data = ExtResource("10_6evid")
+
+[node name="PlantSystem" type="Node2D" parent="." unique_id=158213592 groups=["plant_system"]]
+script = ExtResource("11_cpevx")
+plant_scene = ExtResource("12_cpevx")
