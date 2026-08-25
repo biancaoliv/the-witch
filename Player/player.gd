@@ -13,6 +13,15 @@ var current_state: PlayerState
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
+enum EquippedTool {
+	NONE,
+	HOE,
+	WATERING_CAN,
+	SEED
+}
+
+var equipped_tool: EquippedTool = EquippedTool.NONE
+
 
 # Inicialização
 func _ready():
@@ -109,3 +118,18 @@ func anim_direction() -> String:
 		return "up"
 	else:
 		return "side"
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_1:
+			equipped_tool = EquippedTool.HOE
+			print("Equipado: Enxada")
+
+		elif event.keycode == KEY_2:
+			equipped_tool = EquippedTool.WATERING_CAN
+			print("Equipado: Regador")
+
+		elif event.keycode == KEY_3:
+			equipped_tool = EquippedTool.SEED
+			print("Equipado: Semente")

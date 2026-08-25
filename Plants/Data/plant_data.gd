@@ -12,3 +12,6 @@ class_name PlantData extends Resource
 
 @export_category("Visual")
 @export var sprite_frames: SpriteFrames
+
+@export_category("Colheita")
+@export var harvest_amount: int = 1

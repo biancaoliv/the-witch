@@ -1,8 +1,17 @@
 [gd_scene format=3 uid="uid://ub5g21hts3sx"]
 
-[ext_resource type="Script" uid="uid://dobrrgrpmq6rt" path="res://Plants/plant.gd" id="1_bicjr"]
+[ext_resource type="Script" uid="uid://dobrrgrpmq6rt" path="res://Plants/Plant.gd" id="1_bicjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(44, 42)
 
 [node name="Plant" type="Node2D" unique_id=1947245174]
 script = ExtResource("1_bicjr")
 
 [node name="PlantSprite" type="AnimatedSprite2D" parent="." unique_id=206701355]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=118347680]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1908818682]
+shape = SubResource("RectangleShape2D_g4v7s")
