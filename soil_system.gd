@@ -51,12 +51,21 @@ func _process(_delta: float) -> void:
 	if not Input.is_action_just_pressed("space"):
 		return
 
+	var slot := player.inventory.get_selected_slot()
+
+	if slot == null or slot.is_empty():
+		return
+
+	if not slot.item.data is ToolItemData:
+		return
+
+	var tool_data := slot.item.data as ToolItemData
 	var cell := farm_grid.get_target_cell()
 
-	if player.equipped_tool == Player.EquippedTool.HOE:
+	if tool_data.tool_type == ToolItemData.ToolType.HOE:
 		till_soil(cell)
 
-	elif player.equipped_tool == Player.EquippedTool.WATERING_CAN:
+	elif tool_data.tool_type == ToolItemData.ToolType.WATERING_CAN:
 		water_soil(cell)
 
 

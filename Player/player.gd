@@ -1,40 +1,33 @@
-class_name Player extends CharacterBody2D
+class_name Player
+extends CharacterBody2D
+
 
 # Direção e movimentação
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
 
-# FMS
+
+# FSM
 var states: Dictionary[String, PlayerState]
 var prev_state: PlayerState
 var current_state: PlayerState
 
+
 # Referências aos nós
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
-
-enum EquippedTool {
-	NONE,
-	HOE,
-	WATERING_CAN,
-	SEED
-}
-
-var equipped_tool: EquippedTool = EquippedTool.NONE
+@onready var inventory: Inventory = $Inventory
 
 
-# Inicialização
-func _ready():
+func _ready() -> void:
 	_initialize_states()
 
 
-# Atualiza entrada do jogador e animações
 func _process(delta: float) -> void:
 	if current_state:
 		current_state.update(delta)
 
-	
-# Move o personagem utilizando a física da Godot
+
 func _physics_process(delta: float) -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
 
@@ -49,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		current_state.handle_input(event)
 
 
-func _initialize_states():
+func _initialize_states() -> void:
 	var initial_state: PlayerState = null
 
 	for c in $States.get_children():
@@ -82,7 +75,6 @@ func is_moving() -> bool:
 	return direction != Vector2.ZERO
 
 
-# Atualiza a direção em que o personagem está olhando
 func set_direction() -> bool:
 	var new_direction: Vector2 = cardinal_direction
 
@@ -99,18 +91,15 @@ func set_direction() -> bool:
 
 	cardinal_direction = new_direction
 
-	# Inverter o eixo x do sprite para que ele vire de acordo com a direção
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 
 	return true
 
 
-# Reproduz a animação correspondente ao estado e direção
 func update_animation(state: String) -> void:
 	animation_player.play(state + "_" + anim_direction())
 
 
-# Retorna o sufixo da animação baseado na direção atual
 func anim_direction() -> String:
 	if cardinal_direction == Vector2.DOWN:
 		return "down"
@@ -118,18 +107,3 @@ func anim_direction() -> String:
 		return "up"
 	else:
 		return "side"
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_1:
-			equipped_tool = EquippedTool.HOE
-			print("Equipado: Enxada")
-
-		elif event.keycode == KEY_2:
-			equipped_tool = EquippedTool.WATERING_CAN
-			print("Equipado: Regador")
-
-		elif event.keycode == KEY_3:
-			equipped_tool = EquippedTool.SEED
-			print("Equipado: Semente")

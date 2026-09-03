@@ -5,14 +5,16 @@
 [ext_resource type="Texture2D" uid="uid://cxvxa3s2r5uyj" path="res://assets/tilesets/spring_props.png" id="3_m8u5f"]
 [ext_resource type="TileSet" uid="uid://dhw62oonw5xix" path="res://world/tilesets/sprint_props.tres" id="4_0jo3b"]
 [ext_resource type="Script" uid="uid://cbvvlkilo4bl1" path="res://world/farm/farm_grid.gd" id="8_02d13"]
+[ext_resource type="Resource" uid="uid://cmgax4jii3au2" path="res://Inventory/Data/corn_seed.tres" id="8_cnq3x"]
 [ext_resource type="Texture2D" uid="uid://c4fu0cug3xkfx" path="res://assets/tilesets/square.png" id="9_4e86w"]
-[ext_resource type="Resource" uid="uid://b1dqaxo7ud03j" path="res://Plants/Data/corn.tres" id="9_cpevx"]
-[ext_resource type="Resource" uid="uid://cim20p2s268tg" path="res://Plants/Data/beet.tres" id="10_6evid"]
 [ext_resource type="PackedScene" uid="uid://bvmknu7r2lxj2" path="res://seed/seed_station.tscn" id="10_8l0q7"]
 [ext_resource type="Script" uid="uid://ccc6ju6ctqqa2" path="res://Plants/plant_system.gd" id="11_cpevx"]
+[ext_resource type="Script" uid="uid://7qj1iirinlub" path="res://Hotbar/hotbar.gd" id="12_6evid"]
 [ext_resource type="PackedScene" uid="uid://ub5g21hts3sx" path="res://Plants/Plant.tscn" id="12_cpevx"]
-[ext_resource type="Resource" uid="uid://bh60lc1g6v0y7" path="res://Plants/Data/tomato.tres" id="13_6evid"]
+[ext_resource type="Script" uid="uid://bbwyc5mermywi" path="res://Hotbar/hotbar_slot.gd" id="13_aq8wa"]
 [ext_resource type="Script" uid="uid://cdopx12k4gphn" path="res://soil_system.gd" id="13_qwp5g"]
+[ext_resource type="Texture2D" uid="uid://bjvxgm3ek7pcf" path="res://assets/tilesets/Inventory_Blocks_Spritesheet.png" id="14_aq8wa"]
+[ext_resource type="FontFile" uid="uid://bp6ds00a3lncq" path="res://assets/font/font_pixel.ttf" id="14_qwp5g"]
 
 [sub_resource type="GDScript" id="GDScript_rupst"]
 script/source = "extends Node2D
@@ -448,6 +450,20 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_lef3r")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wenvo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq8wa"]
+atlas = ExtResource("14_aq8wa")
+region = Rect2(3, 98, 42, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbnqg"]
+atlas = ExtResource("14_aq8wa")
+region = Rect2(51, 98, 42, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
+atlas = ExtResource("14_aq8wa")
+region = Rect2(3, 98, 42, 44)
+
 [node name="World" type="Node2D" unique_id=1596849219]
 y_sort_enabled = true
 script = SubResource("GDScript_rupst")
@@ -519,15 +535,14 @@ texture = ExtResource("9_4e86w")
 
 [node name="TomatoStation" parent="." unique_id=264408607 instance=ExtResource("10_8l0q7")]
 position = Vector2(511, 547)
-plant_data = ExtResource("13_6evid")
 
 [node name="CornStation" parent="." unique_id=1827926451 instance=ExtResource("10_8l0q7")]
 position = Vector2(416, 547)
-plant_data = ExtResource("9_cpevx")
+seed_item_data = ExtResource("8_cnq3x")
+seed_amount = 10
 
 [node name="BeetStation" parent="." unique_id=503755438 instance=ExtResource("10_8l0q7")]
 position = Vector2(320, 547)
-plant_data = ExtResource("10_6evid")
 
 [node name="PlantSystem" type="Node2D" parent="." unique_id=158213592 groups=["plant_system"]]
 script = ExtResource("11_cpevx")
@@ -535,3 +550,264 @@ plant_scene = ExtResource("12_cpevx")
 
 [node name="SoilSystem" type="Node2D" parent="." unique_id=1194171168]
 script = ExtResource("13_qwp5g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1743775424]
+
+[node name="UI Control" type="Control" parent="CanvasLayer" unique_id=907331334]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hotbar(control)" type="Control" parent="CanvasLayer/UI Control" unique_id=411083743 node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 82.80499
+offset_right = -110.0
+offset_bottom = 82.80499
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_6evid")
+player = NodePath("../../../Player")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI Control/Hotbar(control)" unique_id=1624797763]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Slot1" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1000717495]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("13_aq8wa")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1" unique_id=1053744155]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer" unique_id=2111807954]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=386255590]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=211393811]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 7.9999943
+offset_top = 4.195013
+offset_right = 39.999992
+offset_bottom = 36.195015
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=717823380]
+texture_filter = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.195007
+offset_right = 45.000027
+offset_bottom = 47.195007
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_qwp5g")
+theme_override_font_sizes/font_size = 9
+
+[node name="Slot2" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1019159942]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("13_aq8wa")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2" unique_id=1525885064]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer" unique_id=718549253]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=401370319]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=1924717661]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 7.9999943
+offset_top = 4.195013
+offset_right = 39.999992
+offset_bottom = 36.195015
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=103098871]
+texture_filter = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.195007
+offset_right = 45.000027
+offset_bottom = 47.195007
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_qwp5g")
+theme_override_font_sizes/font_size = 9
+
+[node name="Slot3" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1090698522]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("13_aq8wa")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3" unique_id=1901719571]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer" unique_id=1768424559]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=779532843]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=344654125]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 7.9999943
+offset_top = 4.195013
+offset_right = 39.999992
+offset_bottom = 36.195015
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=869100584]
+texture_filter = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.195007
+offset_right = 45.000027
+offset_bottom = 47.195007
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_qwp5g")
+theme_override_font_sizes/font_size = 9
+
+[node name="Slot4" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=219962339]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("13_aq8wa")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4" unique_id=646439679]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer" unique_id=1049758919]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=1194529243]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=344946677]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 7.9999943
+offset_top = 4.195013
+offset_right = 39.999992
+offset_bottom = 36.195015
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=1734183324]
+texture_filter = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.195007
+offset_right = 45.000027
+offset_bottom = 47.195007
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_qwp5g")
+theme_override_font_sizes/font_size = 9
+
+[node name="Slot5" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=903122974]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("13_aq8wa")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5" unique_id=1140032809]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer" unique_id=1152611612]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=135629196]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=966018811]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 7.9999943
+offset_top = 4.195013
+offset_right = 39.999992
+offset_bottom = 36.195015
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=773204249]
+texture_filter = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = 33.195007
+offset_right = 45.000027
+offset_bottom = 47.195007
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_qwp5g")
+theme_override_font_sizes/font_size = 9

@@ -1,35 +1,54 @@
 class_name SeedStation extends Area2D
 
 
-@export var plant_data: PlantData
+@export var seed_item_data: SeedItemData
+@export var seed_amount: int = 1
+
 
 var player_nearby: bool = false
-var plant_system: PlantSystem
+var player: Player = null
 
 
 func _ready() -> void:
-	plant_system = get_tree().get_first_node_in_group("plant_system")
-
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("space") and player_nearby:
-		if plant_system and plant_data:
-			plant_system.selected_plant_data = plant_data
+	if not event.is_action_released("space"):
+		return
 
-			print(
-				"Semente selecionada: ",
-				plant_data.plant_name
-			)
+	if not player_nearby:
+		return
+
+	if player == null:
+		return
+
+	if seed_item_data == null:
+		print("SeedItemData não definido na estação.")
+		return
+
+	var added := player.inventory.add_item_data(
+		seed_item_data,
+		seed_amount
+	)
+
+	if added:
+		print(
+			"Recebeu ",
+			seed_amount,
+			"x ",
+			seed_item_data.item_name
+		)
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
+		player = body
 		player_nearby = true
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_nearby = false
+		player = null

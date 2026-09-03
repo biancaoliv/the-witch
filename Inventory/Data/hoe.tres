@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ToolItemData" format=3 uid="uid://4a5b1rfwxmec"]
+
+[ext_resource type="Script" uid="uid://qcgr04knmrla" path="res://Inventory/Data/tool_item_data.gd" id="1_5urpl"]
+[ext_resource type="Texture2D" uid="uid://bden3tni2b6pr" path="res://assets/tilesets/10_Wooden_Shovel.PNG" id="1_l5r8w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq8wa"]
+atlas = ExtResource("1_l5r8w")
+
+[resource]
+script = ExtResource("1_5urpl")
+item_name = "Enxada"
+icon = SubResource("AtlasTexture_aq8wa")
+max_stack = 1
+metadata/_custom_type_script = "uid://qcgr04knmrla"

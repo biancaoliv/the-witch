@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SeedItemData" format=3 uid="uid://cmgax4jii3au2"]
+
+[ext_resource type="Texture2D" uid="uid://divcdw6d07kij" path="res://assets/tilesets/corn_icons.png" id="1_8vffn"]
+[ext_resource type="Script" uid="uid://b0squ8r4vatam" path="res://Inventory/Data/seed_item_data.gd" id="1_cl7yo"]
+[ext_resource type="Resource" uid="uid://b1dqaxo7ud03j" path="res://Plants/Data/corn.tres" id="1_u8h0p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwp5g"]
+atlas = ExtResource("1_8vffn")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_cl7yo")
+plant_data = ExtResource("1_u8h0p")
+item_name = "Semente de Milho"
+icon = SubResource("AtlasTexture_qwp5g")

@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://cmtjjr2edf6yt" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://ds1vk4y3lgfjm" path="res://Player/sprites/player_sprite.png" id="2_k53q1"]
 [ext_resource type="Script" uid="uid://tlb24j6hfqoq" path="res://Player/states/idle.gd" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://cersfsmbimw6v" path="res://Inventory/Inventory.gd" id="5_fhl08"]
 [ext_resource type="Script" uid="uid://d26x6c715kieu" path="res://Player/states/walk.gd" id="5_k53q1"]
+[ext_resource type="Resource" uid="uid://4a5b1rfwxmec" path="res://Inventory/Data/hoe.tres" id="6_fhl08"]
+[ext_resource type="Resource" uid="uid://c6jyt46fa3bh3" path="res://Inventory/Data/watering_can.tres" id="7_vtle1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 
@@ -164,3 +167,9 @@ libraries/ = SubResource("AnimationLibrary_gwnis")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=215843593]
 position = Vector2(2, 0)
+
+[node name="Inventory" type="Node" parent="." unique_id=255075791]
+script = ExtResource("5_fhl08")
+starting_hoe = ExtResource("6_fhl08")
+starting_watering_can = ExtResource("7_vtle1")
+metadata/_custom_type_script = "uid://cersfsmbimw6v"
