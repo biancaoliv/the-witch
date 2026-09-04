@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CropItemData" format=3 uid="uid://xcrwo1br6pts"]
+
+[ext_resource type="Script" uid="uid://bu6t7gwvmcyni" path="res://Inventory/Data/crop_item_data.gd" id="1_h6fvd"]
+[ext_resource type="Texture2D" uid="uid://t14y61adhkln" path="res://assets/tilesets/farming_crops.png" id="1_puh0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf7rj"]
+atlas = ExtResource("1_puh0o")
+region = Rect2(0, 145, 16, 13)
+
+[resource]
+script = ExtResource("1_h6fvd")
+icon = SubResource("AtlasTexture_wf7rj")
+metadata/_custom_type_script = "uid://bu6t7gwvmcyni"

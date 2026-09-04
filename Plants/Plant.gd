@@ -91,7 +91,7 @@ func grow() -> void:
 func harvest() -> void:
 	if not ready_to_harvest:
 		return
-	print("Colhido: ", plant_data.plant_name, " x", plant_data.harvest_amount)
+	print("Colhido: ", plant_data.plant_name, " x", plant_data.harvest_quantity)
 
 	harvested.emit(self)
 

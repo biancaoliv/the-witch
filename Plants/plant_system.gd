@@ -3,6 +3,7 @@ class_name PlantSystem extends Node2D
 
 @export var plant_scene: PackedScene
 
+
 var planted_cells: Dictionary[Vector2i, Plant] = {}
 
 
@@ -107,19 +108,21 @@ func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	if soil == null:
 		return
 
-	# O solo volta a ficar arado
-	soil.state = SoilCell.SoilState.TILLED
+	var plant_data := plant.plant_data
 
-	# Remove a referência da planta
+	if plant_data.harvest_item != null:
+		player.inventory.add_item_data(
+			plant_data.harvest_item,
+			plant_data.harvest_quantity
+		)
+
+	soil.state = SoilCell.SoilState.TILLED
 	soil.plant = null
 
-	# Atualiza visualmente o solo
 	soil_system.update_soil_visual(cell)
 
-	# Libera a célula para novo plantio
 	planted_cells.erase(cell)
 
-	# Remove a planta do mundo
 	plant.queue_free()
 
 	print("Célula liberada após colheita: ", cell)
