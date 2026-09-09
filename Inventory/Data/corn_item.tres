@@ -9,5 +9,6 @@ region = Rect2(0, 145, 16, 13)
 
 [resource]
 script = ExtResource("1_h6fvd")
+item_name = "Milho"
 icon = SubResource("AtlasTexture_wf7rj")
 metadata/_custom_type_script = "uid://bu6t7gwvmcyni"

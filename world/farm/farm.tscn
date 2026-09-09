@@ -6,7 +6,9 @@
 [ext_resource type="TileSet" uid="uid://dhw62oonw5xix" path="res://world/tilesets/sprint_props.tres" id="4_0jo3b"]
 [ext_resource type="Script" uid="uid://cbvvlkilo4bl1" path="res://world/farm/farm_grid.gd" id="8_02d13"]
 [ext_resource type="Resource" uid="uid://cmgax4jii3au2" path="res://Inventory/Data/corn_seed.tres" id="8_cnq3x"]
+[ext_resource type="Resource" uid="uid://b10b1gdci1sem" path="res://Inventory/Data/tomato_seed.tres" id="8_rbnqg"]
 [ext_resource type="Texture2D" uid="uid://c4fu0cug3xkfx" path="res://assets/tilesets/square.png" id="9_4e86w"]
+[ext_resource type="Resource" uid="uid://dt5mgthpn0whr" path="res://Inventory/Data/beet_seed.tres" id="9_rbnqg"]
 [ext_resource type="PackedScene" uid="uid://bvmknu7r2lxj2" path="res://seed/seed_station.tscn" id="10_8l0q7"]
 [ext_resource type="Script" uid="uid://ccc6ju6ctqqa2" path="res://Plants/plant_system.gd" id="11_cpevx"]
 [ext_resource type="Script" uid="uid://7qj1iirinlub" path="res://Hotbar/hotbar.gd" id="12_6evid"]
@@ -534,15 +536,19 @@ position = Vector2(0, -5)
 texture = ExtResource("9_4e86w")
 
 [node name="TomatoStation" parent="." unique_id=264408607 instance=ExtResource("10_8l0q7")]
-position = Vector2(511, 547)
+position = Vector2(511, 548)
+seed_item_data = ExtResource("8_rbnqg")
+seed_amount = 10
 
 [node name="CornStation" parent="." unique_id=1827926451 instance=ExtResource("10_8l0q7")]
-position = Vector2(416, 547)
+position = Vector2(416, 546)
 seed_item_data = ExtResource("8_cnq3x")
 seed_amount = 10
 
 [node name="BeetStation" parent="." unique_id=503755438 instance=ExtResource("10_8l0q7")]
 position = Vector2(320, 547)
+seed_item_data = ExtResource("9_rbnqg")
+seed_amount = 10
 
 [node name="PlantSystem" type="Node2D" parent="." unique_id=158213592 groups=["plant_system"]]
 script = ExtResource("11_cpevx")

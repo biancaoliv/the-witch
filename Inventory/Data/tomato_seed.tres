@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SeedItemData" format=3 uid="uid://b10b1gdci1sem"]
+
+[ext_resource type="Script" uid="uid://b0squ8r4vatam" path="res://Inventory/Data/seed_item_data.gd" id="1_maybf"]
+[ext_resource type="Texture2D" uid="uid://cuucacbcxihr5" path="res://assets/tilesets/tomato_16x16.png" id="1_ytxvs"]
+[ext_resource type="Resource" uid="uid://bh60lc1g6v0y7" path="res://Plants/Data/tomato.tres" id="2_rla4d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_187gs"]
+atlas = ExtResource("1_ytxvs")
+
+[resource]
+script = ExtResource("1_maybf")
+plant_data = ExtResource("2_rla4d")
+item_name = "Tomato"
+icon = SubResource("AtlasTexture_187gs")
+metadata/_custom_type_script = "uid://b0squ8r4vatam"
