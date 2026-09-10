@@ -41,10 +41,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if not ready_to_harvest:
-		print(plant_data.plant_name, " ainda não está pronta para colher.")
+		print(
+			plant_data.plant_name,
+			" ainda não está pronta para colher."
+		)
 		return
 
 	harvest()
+	get_viewport().set_input_as_handled()
 
 
 func grow() -> void:

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SeedItemData" format=3 uid="uid://dt5mgthpn0whr"]
 
-[ext_resource type="Script" uid="uid://b0squ8r4vatam" path="res://Inventory/Data/seed_item_data.gd" id="1_m0r7g"]
+[ext_resource type="Script" uid="uid://b0squ8r4vatam" path="res://Systems/inventory/data/seed_item_data.gd" id="1_m0r7g"]
 [ext_resource type="Texture2D" uid="uid://c4swxyd4gfer2" path="res://assets/tilesets/beet_16x16.png" id="1_nuysf"]
-[ext_resource type="Resource" uid="uid://cim20p2s268tg" path="res://Plants/Data/beet.tres" id="2_yejr7"]
+[ext_resource type="Resource" uid="uid://cim20p2s268tg" path="res://Systems/farming/data/beet.tres" id="2_yejr7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbnqg"]
 atlas = ExtResource("1_nuysf")

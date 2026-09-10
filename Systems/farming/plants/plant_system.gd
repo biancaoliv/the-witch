@@ -4,17 +4,14 @@ class_name PlantSystem extends Node2D
 @export var plant_scene: PackedScene
 
 
-var planted_cells: Dictionary[Vector2i, Plant] = {}
-
-
 @onready var farm_grid: FarmGrid = $"../FarmGrid"
 @onready var farm_soil: TileMapLayer = $"../FarmSoil"
 @onready var player: Player = $"../Player"
 @onready var soil_system: SoilSystem = $"../SoilSystem"
 
 
-func _process(_delta: float) -> void:
-	if not Input.is_action_just_pressed("space"):
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("space"):
 		return
 
 	var slot := player.inventory.get_selected_slot()
@@ -40,13 +37,7 @@ func can_plant(cell: Vector2i) -> bool:
 	if soil == null:
 		return false
 
-	if not soil.can_plant():
-		return false
-
-	if cell in planted_cells:
-		return false
-
-	return true
+	return soil.can_plant()
 
 
 func plant(cell: Vector2i, slot: InventorySlot) -> void:
@@ -84,8 +75,6 @@ func plant(cell: Vector2i, slot: InventorySlot) -> void:
 		_on_plant_harvested.bind(cell)
 	)
 
-	planted_cells[cell] = new_plant
-
 	soil.state = SoilCell.SoilState.PLANTED
 	soil.plant = new_plant
 
@@ -120,8 +109,6 @@ func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	soil.plant = null
 
 	soil_system.update_soil_visual(cell)
-
-	planted_cells.erase(cell)
 
 	plant.queue_free()
 

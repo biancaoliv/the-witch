@@ -25,7 +25,10 @@ func can_till() -> bool:
 
 
 func can_plant() -> bool:
-	return state == SoilState.TILLED
+	return (
+		state == SoilState.TILLED
+		and plant == null
+	)
 
 
 func can_water() -> bool:

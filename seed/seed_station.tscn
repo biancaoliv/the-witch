@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvmknu7r2lxj2"]
 
-[ext_resource type="Script" uid="uid://d2gjlyp7sogec" path="res://seed/seed_station.gd" id="1_i50c5"]
+[ext_resource type="Script" uid="uid://d2gjlyp7sogec" path="res://Seed/seed_station.gd" id="1_i50c5"]
 [ext_resource type="Texture2D" uid="uid://bat24ldu2o2ae" path="res://assets/tilesets/bag.png" id="2_phg6k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]

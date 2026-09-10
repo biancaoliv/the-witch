@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ToolItemData" format=3 uid="uid://c6jyt46fa3bh3"]
 
 [ext_resource type="Texture2D" uid="uid://4w4maldvcprq" path="res://assets/tilesets/watering.PNG" id="1_7r0ny"]
-[ext_resource type="Script" uid="uid://qcgr04knmrla" path="res://Inventory/Data/tool_item_data.gd" id="1_18aa7"]
+[ext_resource type="Script" uid="uid://qcgr04knmrla" path="res://Systems/inventory/data/tool_item_data.gd" id="1_18aa7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18aa7"]
 atlas = ExtResource("1_7r0ny")

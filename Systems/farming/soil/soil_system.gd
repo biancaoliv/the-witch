@@ -47,8 +47,8 @@ func initialize_soil_cells() -> void:
 	print("Solos registrados: ", soil_cells.size())
 
 
-func _process(_delta: float) -> void:
-	if not Input.is_action_just_pressed("space"):
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("space"):
 		return
 
 	var slot := player.inventory.get_selected_slot()
