@@ -574,10 +574,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = 82.80499
-offset_right = -110.0
-offset_bottom = 82.80499
+offset_left = -190.0
+offset_top = 130.0
+offset_right = -190.0
+offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("14_wur3f")
@@ -587,9 +587,10 @@ player = NodePath("../../../Player")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = 2
 
 [node name="Slot1" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1000717495]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
 script = ExtResource("15_hkexu")
@@ -600,12 +601,12 @@ selected_background = SubResource("AtlasTexture_rbnqg")
 layout_mode = 2
 
 [node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer" unique_id=2111807954]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
 [node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=386255590]
 texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -614,206 +615,436 @@ expand_mode = 1
 
 [node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=211393811]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 0
-offset_left = 7.9999943
-offset_top = 4.195013
-offset_right = 39.999992
-offset_bottom = 36.195015
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot1/MarginContainer/Control" unique_id=717823380]
 texture_filter = 1
 layout_mode = 0
-offset_left = 33.0
-offset_top = 33.195007
-offset_right = 45.000027
-offset_bottom = 47.195007
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 36.000027
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_54ohb")
 theme_override_font_sizes/font_size = 9
 
-[node name="Slot2" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1019159942]
-custom_minimum_size = Vector2(48, 48)
+[node name="Slot2" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1320511928]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
 script = ExtResource("15_hkexu")
 normal_background = SubResource("AtlasTexture_aq8wa")
 selected_background = SubResource("AtlasTexture_rbnqg")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2" unique_id=1525885064]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2" unique_id=1359921073]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer" unique_id=718549253]
-custom_minimum_size = Vector2(40, 40)
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer" unique_id=1390466894]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=401370319]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=1234937938]
 texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_g4v7s")
 expand_mode = 1
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=1924717661]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=1368820857]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 0
-offset_left = 7.9999943
-offset_top = 4.195013
-offset_right = 39.999992
-offset_bottom = 36.195015
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=103098871]
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot2/MarginContainer/Control" unique_id=524933817]
 texture_filter = 1
 layout_mode = 0
-offset_left = 33.0
-offset_top = 33.195007
-offset_right = 45.000027
-offset_bottom = 47.195007
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 36.000027
+offset_bottom = 36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_54ohb")
 theme_override_font_sizes/font_size = 9
 
-[node name="Slot3" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1090698522]
-custom_minimum_size = Vector2(48, 48)
+[node name="Slot3" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=2019743065]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
 script = ExtResource("15_hkexu")
 normal_background = SubResource("AtlasTexture_aq8wa")
 selected_background = SubResource("AtlasTexture_rbnqg")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3" unique_id=1901719571]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3" unique_id=2060130937]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer" unique_id=1768424559]
-custom_minimum_size = Vector2(40, 40)
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer" unique_id=1942410155]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=779532843]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=621759565]
 texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_g4v7s")
 expand_mode = 1
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=344654125]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=143096970]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 0
-offset_left = 7.9999943
-offset_top = 4.195013
-offset_right = 39.999992
-offset_bottom = 36.195015
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=869100584]
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot3/MarginContainer/Control" unique_id=1171036628]
 texture_filter = 1
 layout_mode = 0
-offset_left = 33.0
-offset_top = 33.195007
-offset_right = 45.000027
-offset_bottom = 47.195007
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_54ohb")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 
-[node name="Slot4" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=219962339]
-custom_minimum_size = Vector2(48, 48)
+[node name="Slot4" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1719844708]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
 script = ExtResource("15_hkexu")
 normal_background = SubResource("AtlasTexture_aq8wa")
 selected_background = SubResource("AtlasTexture_rbnqg")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4" unique_id=646439679]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4" unique_id=1347368684]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer" unique_id=1049758919]
-custom_minimum_size = Vector2(40, 40)
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer" unique_id=1606763162]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=1194529243]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=594178371]
 texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_g4v7s")
 expand_mode = 1
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=344946677]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=616176355]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 0
-offset_left = 7.9999943
-offset_top = 4.195013
-offset_right = 39.999992
-offset_bottom = 36.195015
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=1734183324]
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot4/MarginContainer/Control" unique_id=210933089]
 texture_filter = 1
 layout_mode = 0
-offset_left = 33.0
-offset_top = 33.195007
-offset_right = 45.000027
-offset_bottom = 47.195007
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_54ohb")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 
-[node name="Slot5" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=903122974]
-custom_minimum_size = Vector2(48, 48)
+[node name="Slot5" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1787325188]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
 script = ExtResource("15_hkexu")
 normal_background = SubResource("AtlasTexture_aq8wa")
 selected_background = SubResource("AtlasTexture_rbnqg")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5" unique_id=1140032809]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5" unique_id=1958861924]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer" unique_id=1152611612]
-custom_minimum_size = Vector2(40, 40)
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer" unique_id=1721258848]
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=135629196]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=1323476593]
 texture_filter = 1
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_g4v7s")
 expand_mode = 1
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=966018811]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=738570214]
 texture_filter = 1
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 0
-offset_left = 7.9999943
-offset_top = 4.195013
-offset_right = 39.999992
-offset_bottom = 36.195015
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=773204249]
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot5/MarginContainer/Control" unique_id=1435123658]
 texture_filter = 1
 layout_mode = 0
-offset_left = 33.0
-offset_top = 33.195007
-offset_right = 45.000027
-offset_bottom = 47.195007
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("17_54ohb")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
+
+[node name="Slot6" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=651052708]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("15_hkexu")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot6" unique_id=765345978]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot6/MarginContainer" unique_id=1980070423]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot6/MarginContainer/Control" unique_id=636461270]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot6/MarginContainer/Control" unique_id=1941180972]
+texture_filter = 1
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot6/MarginContainer/Control" unique_id=2102982399]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_54ohb")
+theme_override_font_sizes/font_size = 8
+
+[node name="Slot7" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1388361395]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("15_hkexu")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot7" unique_id=13550694]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot7/MarginContainer" unique_id=1362985615]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot7/MarginContainer/Control" unique_id=1156391701]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot7/MarginContainer/Control" unique_id=16251209]
+texture_filter = 1
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot7/MarginContainer/Control" unique_id=1809639926]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_54ohb")
+theme_override_font_sizes/font_size = 8
+
+[node name="Slot8" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=1190902647]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("15_hkexu")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot8" unique_id=97542205]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot8/MarginContainer" unique_id=2063028299]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot8/MarginContainer/Control" unique_id=1833398525]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot8/MarginContainer/Control" unique_id=1368931393]
+texture_filter = 1
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot8/MarginContainer/Control" unique_id=160631287]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_54ohb")
+theme_override_font_sizes/font_size = 8
+
+[node name="Slot9" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=92369710]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("15_hkexu")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot9" unique_id=1569559413]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot9/MarginContainer" unique_id=283168848]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot9/MarginContainer/Control" unique_id=1656115958]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot9/MarginContainer/Control" unique_id=485937736]
+texture_filter = 1
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot9/MarginContainer/Control" unique_id=1757187695]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_54ohb")
+theme_override_font_sizes/font_size = 8
+
+[node name="Slot10" type="PanelContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer" unique_id=208781845]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wenvo")
+script = ExtResource("15_hkexu")
+normal_background = SubResource("AtlasTexture_aq8wa")
+selected_background = SubResource("AtlasTexture_rbnqg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot10" unique_id=967578121]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot10/MarginContainer" unique_id=1797566847]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot10/MarginContainer/Control" unique_id=1468203385]
+texture_filter = 1
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_g4v7s")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot10/MarginContainer/Control" unique_id=952558363]
+texture_filter = 1
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 0
+offset_left = 4.000002
+offset_top = 3.0000057
+offset_right = 36.0
+offset_bottom = 35.000008
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/UI Control/Hotbar(control)/HBoxContainer/Slot10/MarginContainer/Control" unique_id=903926316]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 30.0
+offset_right = 41.000027
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_54ohb")
+theme_override_font_sizes/font_size = 8

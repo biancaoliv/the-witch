@@ -10,7 +10,12 @@ extends Control
 	$HBoxContainer/Slot2,
 	$HBoxContainer/Slot3,
 	$HBoxContainer/Slot4,
-	$HBoxContainer/Slot5
+	$HBoxContainer/Slot5,
+	$HBoxContainer/Slot6,
+	$HBoxContainer/Slot7,
+	$HBoxContainer/Slot8,
+	$HBoxContainer/Slot9,
+	$HBoxContainer/Slot10
 ]
 
 
