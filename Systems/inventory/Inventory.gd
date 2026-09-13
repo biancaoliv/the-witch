@@ -123,7 +123,7 @@ func select_slot(index: int) -> void:
 func select_next_slot() -> void:
 	var next_index: int = selected_slot_index + 1
 
-	if next_index > 4:
+	if next_index >= 10:
 		next_index = 0
 
 	select_slot(next_index)
@@ -133,7 +133,7 @@ func select_previous_slot() -> void:
 	var previous_index: int = selected_slot_index - 1
 
 	if previous_index < 0:
-		previous_index = 4
+		previous_index = 9
 
 	select_slot(previous_index)
 	
@@ -162,3 +162,17 @@ func _input(event: InputEvent) -> void:
 
 		elif event.keycode == KEY_5:
 			select_slot(4)
+		elif event.keycode == KEY_6:
+			select_slot(5)
+
+		elif event.keycode == KEY_7:
+			select_slot(6)
+
+		elif event.keycode == KEY_8:
+			select_slot(7)
+
+		elif event.keycode == KEY_9:
+			select_slot(8)
+
+		elif event.keycode == KEY_0:
+			select_slot(9)
