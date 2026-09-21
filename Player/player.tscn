@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://d26x6c715kieu" path="res://Player/states/walk.gd" id="5_k53q1"]
 [ext_resource type="Resource" uid="uid://4a5b1rfwxmec" path="res://Systems/inventory/data/hoe.tres" id="6_fhl08"]
 [ext_resource type="Resource" uid="uid://c6jyt46fa3bh3" path="res://Systems/inventory/data/watering_can.tres" id="7_vtle1"]
+[ext_resource type="Script" uid="uid://b0jrclj0o1kmi" path="res://Systems/economy/wallet.gd" id="8_od3ui"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 
@@ -173,3 +174,7 @@ script = ExtResource("5_fhl08")
 starting_hoe = ExtResource("6_fhl08")
 starting_watering_can = ExtResource("7_vtle1")
 metadata/_custom_type_script = "uid://cersfsmbimw6v"
+
+[node name="Wallet" type="Node" parent="." unique_id=463105374]
+script = ExtResource("8_od3ui")
+starting_money = 100

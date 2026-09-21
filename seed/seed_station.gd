@@ -1,11 +1,10 @@
-class_name SeedStation extends Area2D
-
+class_name SeedStation
+extends Area2D
 
 @export var seed_item_data: SeedItemData
-@export var seed_amount: int = 1
+@export_range(1, 999) var seed_amount: int = 1
+@export_range(1, 999999) var unit_price: int = 2
 
-
-var player_nearby: bool = false
 var player: Player = null
 
 
@@ -15,40 +14,56 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_released("space"):
+	if not is_instance_valid(player):
 		return
 
-	if not player_nearby:
+	if player.inventory.ui_open:
 		return
 
-	if player == null:
+	if not event.is_action("space"):
 		return
 
-	if seed_item_data == null:
-		print("SeedItemData não definido na estação.")
+	get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("space") and not event.is_echo():
+		_buy_seeds()
+
+
+func _buy_seeds() -> void:
+	if seed_item_data == null or seed_amount <= 0 or unit_price <= 0:
 		return
 
-	var added := player.inventory.add_item_data(
-		seed_item_data,
-		seed_amount
-	)
+	var inventory: Inventory = player.inventory
+	var wallet: Wallet = player.wallet
 
-	if added:
+	if inventory == null or wallet == null:
+		return
+
+	var total_price: int = seed_amount * unit_price
+
+	if wallet.balance < total_price:
+		print("Moedas insuficientes. Preço: ", total_price)
+		return
+
+	if not inventory.can_add_item_data(seed_item_data, seed_amount):
+		print("Não há espaço para todas as sementes.")
+		return
+
+	# O espaço e o saldo já foram verificados.
+	if inventory.add_item_data(seed_item_data, seed_amount):
+		wallet.spend_money(total_price)
 		print(
-			"Recebeu ",
-			seed_amount,
-			"x ",
-			seed_item_data.item_name
+			"Comprou ", seed_amount,
+			"x ", seed_item_data.item_name,
+			" por ", total_price, " moedas."
 		)
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player = body
-		player_nearby = true
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is Player:
-		player_nearby = false
+	if body == player:
 		player = null

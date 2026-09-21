@@ -13,5 +13,5 @@ item_name = "Tomate"
 icon = SubResource("AtlasTexture_wmh17")
 energy = 10
 health = 9
-sell_price = 10
+sell_price = 15
 metadata/_custom_type_script = "uid://bu6t7gwvmcyni"

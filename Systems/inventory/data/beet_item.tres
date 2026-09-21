@@ -11,4 +11,5 @@ region = Rect2(0, 0, 16, 16)
 script = ExtResource("1_ms3js")
 item_name = "Beterraba"
 icon = SubResource("AtlasTexture_m0a2u")
+sell_price = 20
 metadata/_custom_type_script = "uid://bu6t7gwvmcyni"

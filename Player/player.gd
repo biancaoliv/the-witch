@@ -17,7 +17,7 @@ var current_state: PlayerState
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var inventory: Inventory = $Inventory
-
+@onready var wallet: Wallet = $Wallet
 
 func _ready() -> void:
 	_initialize_states()

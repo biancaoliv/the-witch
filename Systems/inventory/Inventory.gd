@@ -250,3 +250,26 @@ func split_stack(index: int) -> void:
 			destination.quantity = amount
 			source.remove(amount)
 			return
+
+func can_add_item_data(item_data: ItemData, quantity: int) -> bool:
+	if item_data == null or quantity <= 0:
+		return false
+
+	if item_data.max_stack <= 0:
+		return false
+
+	var available: int = 0
+
+	for slot in slots:
+		if slot.is_empty():
+			available += item_data.max_stack
+		elif slot.item.data == item_data:
+			available += maxi(
+				0,
+				item_data.max_stack - slot.quantity
+			)
+
+		if available >= quantity:
+			return true
+
+	return false
