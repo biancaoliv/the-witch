@@ -9,6 +9,9 @@ region = Rect2(0, 32, 16, 16)
 
 [resource]
 script = ExtResource("1_lw8oi")
-item_name = "Tomato"
+item_name = "Tomate"
 icon = SubResource("AtlasTexture_wmh17")
+energy = 10
+health = 9
+sell_price = 10
 metadata/_custom_type_script = "uid://bu6t7gwvmcyni"

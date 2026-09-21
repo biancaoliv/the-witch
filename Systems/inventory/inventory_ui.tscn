@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c4y8tf24fx7ni"]
+
+[ext_resource type="Script" uid="uid://nh4im3q3axth" path="res://Systems/inventory/inventory_ui.gd" id="1_syo4h"]
+
+[node name="InventoryUi" type="Control" unique_id=1561561574]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_syo4h")
+
+[node name="Panel" type="Panel" parent="." unique_id=917502486]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -120.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1325098630]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer" unique_id=1803815159]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 5

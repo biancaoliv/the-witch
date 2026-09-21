@@ -29,6 +29,11 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if inventory.ui_open:
+		direction = Vector2.ZERO
+		velocity = Vector2.ZERO
+		return
+
 	direction = Input.get_vector("left", "right", "up", "down")
 
 	if current_state:

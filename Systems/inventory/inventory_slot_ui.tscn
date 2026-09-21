@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d3i3fxkjnu77j"]
+
+[ext_resource type="Script" uid="uid://cgjtr8jmq2qub" path="res://Systems/inventory/inventory_slot_ui.gd" id="1_6esdn"]
+
+[node name="InventorySlotUI" type="PanelContainer" unique_id=4723633]
+custom_minimum_size = Vector2(36, 36)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6esdn")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=316866132]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Icon" type="TextureRect" parent="MarginContainer" unique_id=410841510]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Quantity" type="Label" parent="MarginContainer" unique_id=2035227085]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 8
+text = "12"
+horizontal_alignment = 2
+vertical_alignment = 2

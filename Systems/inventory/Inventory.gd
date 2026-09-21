@@ -9,6 +9,7 @@ extends Node
 
 var slots: Array[InventorySlot] = []
 var selected_slot_index: int = 0
+var ui_open: bool = false
 
 
 func _ready() -> void:
@@ -138,6 +139,8 @@ func select_previous_slot() -> void:
 	select_slot(previous_index)
 	
 func _input(event: InputEvent) -> void:
+	if ui_open:
+		return
 	# Rodinha do mouse
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -176,3 +179,74 @@ func _input(event: InputEvent) -> void:
 
 		elif event.keycode == KEY_0:
 			select_slot(9)
+
+func swap_slots(from_index: int, to_index: int) -> void:
+	if from_index < 0 or from_index >= slots.size():
+		return
+	if to_index < 0 or to_index >= slots.size():
+		return
+	if from_index == to_index:
+		return
+
+	var source: InventorySlot = slots[from_index]
+	var destination: InventorySlot = slots[to_index]
+
+	var saved_item: Item = source.item
+	var saved_quantity: int = source.quantity
+
+	source.item = destination.item
+	source.quantity = destination.quantity
+
+	destination.item = saved_item
+	destination.quantity = saved_quantity
+
+func move_or_stack(from_index: int, to_index: int) -> void:
+	if from_index < 0 or from_index >= slots.size():
+		return
+	if to_index < 0 or to_index >= slots.size():
+		return
+	if from_index == to_index:
+		return
+
+	var source: InventorySlot = slots[from_index]
+	var destination: InventorySlot = slots[to_index]
+
+	if source.is_empty():
+		return
+
+	if destination.is_empty():
+		swap_slots(from_index, to_index)
+		return
+
+	if source.item.data == destination.item.data:
+		var available: int = maxi(
+			0,
+			destination.item.get_max_stack() - destination.quantity
+		)
+		var amount: int = mini(source.quantity, available)
+
+		if amount > 0:
+			destination.add(amount)
+			source.remove(amount)
+
+		return
+
+	swap_slots(from_index, to_index)
+
+func split_stack(index: int) -> void:
+	if index < 0 or index >= slots.size():
+		return
+
+	var source: InventorySlot = slots[index]
+
+	if source.is_empty() or source.quantity < 2:
+		return
+
+	for destination in slots:
+		if destination.is_empty():
+			var amount: int = floori(source.quantity / 2.0)
+
+			destination.item = source.item
+			destination.quantity = amount
+			source.remove(amount)
+			return
