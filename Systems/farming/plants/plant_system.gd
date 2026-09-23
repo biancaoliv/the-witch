@@ -10,6 +10,7 @@ class_name PlantSystem extends Node2D
 @onready var soil_system: SoilSystem = $"../SoilSystem"
 
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("space"):
 		return
@@ -55,6 +56,10 @@ func plant(cell: Vector2i, slot: InventorySlot) -> void:
 	if seed_data.plant_data == null:
 		return
 
+	if not seed_data.plant_data.can_grow_in(GameClock.season):
+		print("Esta semente não pode ser plantada nesta estação.")
+		return
+
 	var soil := soil_system.get_soil(cell)
 
 	if soil == null:
@@ -90,6 +95,34 @@ func plant(cell: Vector2i, slot: InventorySlot) -> void:
 		slot.quantity
 	)
 
+func _ready() -> void:
+	GameClock.season_changed.connect(_on_season_changed)
+
+
+func _on_season_changed(new_season: int, _year: int) -> void:
+	for cell in soil_system.soil_cells:
+		var soil: SoilCell = soil_system.soil_cells[cell]
+		var plant: Plant = soil.plant
+
+		if not is_instance_valid(plant):
+			continue
+
+		if plant.is_queued_for_deletion() or plant.is_dead:
+			continue
+
+		if plant.plant_data == null:
+			continue
+
+		if plant.plant_data.can_grow_in(new_season):
+			continue
+
+		plant.die()
+		soil_system.update_soil_visual(cell)
+
+		print(
+			plant.plant_data.plant_name,
+			" morreu na mudança de estação."
+		)
 
 func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	var soil := soil_system.get_soil(cell)
@@ -113,3 +146,5 @@ func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	plant.queue_free()
 
 	print("Célula liberada após colheita: ", cell)
+
+

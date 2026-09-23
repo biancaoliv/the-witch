@@ -60,4 +60,5 @@ plant_name = "corn"
 sprite_frames = SubResource("SpriteFrames_wf7rj")
 harvest_item = ExtResource("1_wf7rj")
 harvest_quantity = 3
+allowed_seasons = 3
 metadata/_custom_type_script = "uid://mcqljbdwwb5j"

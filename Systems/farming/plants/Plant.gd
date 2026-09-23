@@ -12,6 +12,7 @@ var ready_to_harvest: bool = false
 var player_nearby: bool = false
 var soil: SoilCell
 var growth_days_completed: int = 0
+var is_dead: bool = false
 
 
 @onready var sprite: AnimatedSprite2D = $PlantSprite
@@ -35,6 +36,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_dead:
+		return
 	if not event.is_action_pressed("space"):
 		return
 
@@ -53,6 +56,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func grow_one_day() -> void:
+	if is_dead:
+		return
 	if plant_data == null or soil == null:
 		return
 
@@ -72,6 +77,8 @@ func grow_one_day() -> void:
 
 
 func _update_growth_visual() -> void:
+	if is_dead:
+		return
 	var required_days: int = maxi(1, plant_data.growth_days)
 	var last_stage: int = maxi(0, plant_data.growth_stages - 1)
 
@@ -88,6 +95,8 @@ func _update_growth_visual() -> void:
 
 
 func harvest() -> void:
+	if is_dead:
+		return
 	if not ready_to_harvest:
 		return
 	print("Colhido: ", plant_data.plant_name, " x", plant_data.harvest_quantity)
@@ -103,3 +112,20 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_nearby = false
+
+
+func die() -> void:
+	if is_dead:
+		return
+
+	is_dead = true
+	ready_to_harvest = false
+
+	# Mantém o estágio atual, mas tingido de vermelho.
+	sprite.pause()
+	sprite.modulate = Color(1.0, 0.15, 0.15)
+	set_process_unhandled_input(false)
+
+	if soil != null:
+		soil.state = SoilCell.SoilState.DEAD
+		soil.set_watered(false)

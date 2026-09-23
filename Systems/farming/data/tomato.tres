@@ -60,4 +60,5 @@ plant_name = "tomato"
 sprite_frames = SubResource("SpriteFrames_pxs8d")
 harvest_item = ExtResource("1_gqhpw")
 harvest_quantity = 5
+allowed_seasons = 1
 metadata/_custom_type_script = "uid://mcqljbdwwb5j"

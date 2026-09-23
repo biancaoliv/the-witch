@@ -88,6 +88,19 @@ func till_soil(cell: Vector2i) -> void:
 	if soil == null:
 		return
 
+	# A enxada limpa os restos da planta morta.
+	if soil.state == SoilCell.SoilState.DEAD:
+		if is_instance_valid(soil.plant):
+			soil.plant.queue_free()
+
+		soil.plant = null
+		soil.state = SoilCell.SoilState.TILLED
+		soil.set_watered(false)
+
+		update_soil_visual(cell)
+		print("Planta morta removida.")
+		return
+
 	if not soil.can_till():
 		return
 
@@ -95,7 +108,6 @@ func till_soil(cell: Vector2i) -> void:
 	soil.set_watered(false)
 
 	update_soil_visual(cell)
-
 	print("Solo arado em: ", cell)
 
 
@@ -121,6 +133,10 @@ func update_soil_visual(cell: Vector2i) -> void:
 	if soil == null:
 		return
 
+	if soil.state == SoilCell.SoilState.DEAD:
+		set_tilled_visual(cell)
+		return
+
 	if soil.state == SoilCell.SoilState.VIRGIN:
 		set_normal_visual(cell)
 		return
@@ -130,7 +146,6 @@ func update_soil_visual(cell: Vector2i) -> void:
 			set_watered_visual(cell)
 		else:
 			set_tilled_visual(cell)
-
 		return
 
 	if soil.state == SoilCell.SoilState.PLANTED:
