@@ -7,6 +7,7 @@ class_name SoilSystem extends Node2D
 
 
 var soil_cells: Dictionary[Vector2i, SoilCell] = {}
+var last_processed_morning: int = -1
 
 
 const NORMAL_SOURCE_ID := 0
@@ -21,6 +22,7 @@ const WATERED_ATLAS := Vector2i(0, 2)
 
 func _ready() -> void:
 	initialize_soil_cells()
+	GameClock.morning_started.connect(_on_morning_started)
 
 
 func initialize_soil_cells() -> void:
@@ -160,3 +162,20 @@ func set_watered_visual(cell: Vector2i) -> void:
 		WATERED_SOURCE_ID,
 		WATERED_ATLAS
 	)
+
+func _on_morning_started() -> void:
+	if last_processed_morning == GameClock.total_days:
+		return
+
+	last_processed_morning = GameClock.total_days
+
+	for cell in soil_cells:
+		var soil: SoilCell = soil_cells[cell]
+
+		# A planta verifica a água antes de o solo secar.
+		if is_instance_valid(soil.plant):
+			if not soil.plant.is_queued_for_deletion():
+				soil.plant.grow_one_day()
+
+		soil.set_watered(false)
+		update_soil_visual(cell)

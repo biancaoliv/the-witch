@@ -8,6 +8,7 @@ class_name PlantData extends Resource
 @export_category("Crescimento")
 @export var growth_time: float = 3.0
 @export var growth_stages: int = 6
+@export_range(1, 112) var growth_days: int = 5
 
 
 @export_category("Visual")

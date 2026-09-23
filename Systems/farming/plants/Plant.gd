@@ -11,6 +11,7 @@ var current_stage: int = 0
 var ready_to_harvest: bool = false
 var player_nearby: bool = false
 var soil: SoilCell
+var growth_days_completed: int = 0
 
 
 @onready var sprite: AnimatedSprite2D = $PlantSprite
@@ -30,7 +31,7 @@ func _ready() -> void:
 
 	print("Plant criada: ", plant_data.plant_name)
 
-	grow()
+	_update_growth_visual()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -51,45 +52,39 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
-func grow() -> void:
-	current_stage = 0
-	sprite.frame = current_stage
+func grow_one_day() -> void:
+	if plant_data == null or soil == null:
+		return
 
-	while current_stage < plant_data.growth_stages - 1:
+	if ready_to_harvest or not soil.watered:
+		return
 
-		# Se estiver seco, espera até o solo ser molhado.
-		while not soil.watered:
-			print(
-				plant_data.plant_name,
-				" está esperando água."
-			)
-
-			await soil.watered_changed
-
-		# Solo está molhado. Agora começa o tempo de crescimento.
-		await get_tree().create_timer(
-			plant_data.growth_time
-		).timeout
-
-		# Pode ter secado enquanto esperava.
-		if not soil.watered:
-			continue
-
-		current_stage += 1
-		sprite.frame = current_stage
-
-		print(
-			plant_data.plant_name,
-			" cresceu para o estágio ",
-			current_stage
-		)
-
-	ready_to_harvest = true
+	growth_days_completed += 1
+	_update_growth_visual()
 
 	print(
 		plant_data.plant_name,
-		" está pronta para colher!"
+		" — crescimento: ",
+		growth_days_completed,
+		"/",
+		plant_data.growth_days
 	)
+
+
+func _update_growth_visual() -> void:
+	var required_days: int = maxi(1, plant_data.growth_days)
+	var last_stage: int = maxi(0, plant_data.growth_stages - 1)
+
+	var progress: float = clampf(
+		float(growth_days_completed) / float(required_days),
+		0.0,
+		1.0
+	)
+
+	current_stage = floori(progress * last_stage)
+	sprite.frame = current_stage
+
+	ready_to_harvest = growth_days_completed >= required_days
 
 
 func harvest() -> void:
