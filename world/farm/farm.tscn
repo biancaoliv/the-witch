@@ -19,7 +19,10 @@
 [ext_resource type="FontFile" uid="uid://bp6ds00a3lncq" path="res://assets/font/font_pixel.ttf" id="17_54ohb"]
 [ext_resource type="Script" uid="uid://cga2ty4ldot8w" path="res://Systems/economy/money_ui.gd" id="18_6fo8a"]
 [ext_resource type="PackedScene" uid="uid://c4y8tf24fx7ni" path="res://Systems/inventory/inventory_ui.tscn" id="18_jwugy"]
+[ext_resource type="Script" uid="uid://csfyh7cah2hh4" path="res://Systems/time/clock_ui.gd" id="19_c7yjb"]
 [ext_resource type="Script" uid="uid://dhqg7g3p6xl2q" path="res://Systems/economy/sell_station.gd" id="20_eioyc"]
+[ext_resource type="Script" uid="uid://dw2sibmvkyppt" path="res://Systems/time/day_night_cycle.gd" id="22_dmpgg"]
+[ext_resource type="Script" uid="uid://dqv4bcen55a23" path="res://Systems/time/sleep_station.gd" id="23_c35sp"]
 
 [sub_resource type="GDScript" id="GDScript_rupst"]
 script/source = "extends Node2D
@@ -470,6 +473,9 @@ atlas = ExtResource("16_kruj4")
 region = Rect2(3, 98, 42, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
 size = Vector2(32, 32)
 
 [node name="World" type="Node2D" unique_id=1596849219]
@@ -1065,6 +1071,14 @@ text = "Moedas: 0"
 script = ExtResource("18_6fo8a")
 player = NodePath("../../../Player")
 
+[node name="ClockLabel" type="Label" parent="CanvasLayer/UI Control" unique_id=1186015165]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 52.0
+offset_bottom = 63.0
+script = ExtResource("19_c7yjb")
+
 [node name="InventoryUi" parent="CanvasLayer" unique_id=1561561574 node_paths=PackedStringArray("player") instance=ExtResource("18_jwugy")]
 player = NodePath("../../Player")
 
@@ -1078,4 +1092,19 @@ debug_color = Color(0.48948795, 0.437779, 0.99045426, 0.41960785)
 
 [node name="Polygon2D" type="Polygon2D" parent="SellStation" unique_id=1856791014]
 color = Color(0.8578466, 0.6284293, 0.13719651, 1)
+polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[node name="DayNightCycle" type="CanvasModulate" parent="." unique_id=1424927437]
+script = ExtResource("22_dmpgg")
+
+[node name="SleepStation" type="Area2D" parent="." unique_id=23613244]
+script = ExtResource("23_c35sp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SleepStation" unique_id=1066875794]
+position = Vector2(138, 409)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="Polygon2D" type="Polygon2D" parent="SleepStation" unique_id=2056842117]
+position = Vector2(138, 409)
+color = Color(0.22352941, 1, 1, 1)
 polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)

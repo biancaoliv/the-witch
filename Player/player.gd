@@ -21,6 +21,10 @@ var current_state: PlayerState
 
 func _ready() -> void:
 	_initialize_states()
+	GameClock.day_ended.connect(
+		_on_day_ended,
+		CONNECT_DEFERRED
+	)
 
 
 func _process(delta: float) -> void:
@@ -112,3 +116,20 @@ func anim_direction() -> String:
 		return "up"
 	else:
 		return "side"
+
+func _on_day_ended() -> void:
+	if not GameClock.waiting_for_morning:
+		return
+
+	direction = Vector2.ZERO
+	velocity = Vector2.ZERO
+	change_state("idle")
+
+	GameClock.advance_to_next_morning()
+
+	print(
+		"A jornada terminou. Acordou às ",
+		GameClock.get_time_text(),
+		" — ",
+		GameClock.get_date_text()
+	)
