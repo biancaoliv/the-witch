@@ -1,4 +1,7 @@
 class_name PlantSystem extends Node2D
+const WORLD_ITEM_SCENE: PackedScene = preload(
+	"res://Systems/world_items/world_item.tscn"
+)
 
 
 @export var plant_scene: PackedScene
@@ -127,24 +130,42 @@ func _on_season_changed(new_season: int, _year: int) -> void:
 func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	var soil := soil_system.get_soil(cell)
 
-	if soil == null:
+	if soil == null or soil.plant != plant:
 		return
 
-	var plant_data := plant.plant_data
+	if plant.is_dead or not plant.ready_to_harvest:
+		return
 
-	if plant_data.harvest_item != null:
-		player.inventory.add_item_data(
-			plant_data.harvest_item,
-			plant_data.harvest_quantity
-		)
+	var data: PlantData = plant.plant_data
+
+	if data == null:
+		return
+
+	if data.harvest_item == null or data.harvest_quantity <= 0:
+		push_warning("A planta está sem uma colheita válida.")
+		return
+
+	var drop := WORLD_ITEM_SCENE.instantiate() as WorldItem
+
+	if drop == null:
+		return
+
+	# Configura antes de adicionar à árvore, pois _ready inicia o salto.
+	drop.item_data = data.harvest_item
+	drop.quantity = data.harvest_quantity
+
+	var world := get_parent() as Node2D
+	drop.position = world.to_local(plant.global_position)
+	world.add_child(drop)
+
+	# Libera a célula sem adicionar itens diretamente ao inventário.
+	plant.ready_to_harvest = false
+	plant.set_process_unhandled_input(false)
 
 	soil.state = SoilCell.SoilState.TILLED
 	soil.plant = null
 
 	soil_system.update_soil_visual(cell)
-
 	plant.queue_free()
-
-	print("Célula liberada após colheita: ", cell)
 
 

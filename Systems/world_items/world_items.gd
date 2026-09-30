@@ -1,0 +1,82 @@
+class_name WorldItem
+extends Node2D
+
+@export var item_data: ItemData
+@export_range(1, 9999) var quantity: int = 1
+
+@export var jump_height: float = 20.0
+@export var jump_duration: float = 0.45
+
+var can_pickup: bool = false
+
+@onready var visual: Node2D = $Visual
+@onready var icon: Sprite2D = $Visual/Icon
+@onready var pickup_area: Area2D = $PickupArea
+
+
+func _ready() -> void:
+	if item_data == null:
+		push_warning("WorldItem está sem ItemData.")
+		return
+
+	icon.texture = item_data.icon
+	_play_drop_animation()
+
+
+func _play_drop_animation() -> void:
+	can_pickup = false
+	visual.position = Vector2.ZERO
+
+	var duration: float = maxf(jump_duration, 0.1)
+	var height: float = maxf(jump_height, 0.0)
+	var tween := create_tween()
+
+	# Sobe desacelerando.
+	tween.tween_property(
+		visual,
+		"position:y",
+		-height,
+		duration * 0.5
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+	# Cai acelerando.
+	tween.tween_property(
+		visual,
+		"position:y",
+		0.0,
+		duration * 0.5
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+	tween.tween_callback(_on_landed)
+
+
+func _on_landed() -> void:
+	can_pickup = true
+
+func _physics_process(_delta: float) -> void:
+	if not can_pickup or is_queued_for_deletion():
+		return
+
+	if item_data == null or quantity <= 0:
+		return
+
+	for body in pickup_area.get_overlapping_bodies():
+		if not body is Player:
+			continue
+
+		var player := body as Player
+
+		if player.inventory == null:
+			continue
+
+		var collected: int = player.inventory.collect_item_data(
+			item_data,
+			quantity
+		)
+
+		quantity -= collected
+
+		if quantity <= 0:
+			can_pickup = false
+			queue_free()
+			return

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bx6xfcwxgbbvl"]
+
+[ext_resource type="Script" uid="uid://dqd2q461crshx" path="res://Systems/world_items/world_items.gd" id="1_0qinc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 12.0
+
+[node name="WorldItem" type="Node2D" unique_id=1364046786]
+script = ExtResource("1_0qinc")
+jump_height = 25.0
+
+[node name="Visual" type="Node2D" parent="." unique_id=1671975623]
+
+[node name="Icon" type="Sprite2D" parent="Visual" unique_id=1677271896]
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1128729406]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1705542067]
+shape = SubResource("CircleShape2D_g4v7s")

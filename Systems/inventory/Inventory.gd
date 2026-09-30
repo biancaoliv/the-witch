@@ -273,3 +273,33 @@ func can_add_item_data(item_data: ItemData, quantity: int) -> bool:
 			return true
 
 	return false
+
+func collect_item_data(data: ItemData, amount: int) -> int:
+	if data == null or amount <= 0 or data.max_stack <= 0:
+		return 0
+
+	var remaining: int = amount
+
+	# Primeiro completa pilhas existentes.
+	for slot in slots:
+		if slot.is_empty():
+			continue
+
+		if slot.item.data == data:
+			remaining = slot.add(remaining)
+
+			if remaining == 0:
+				return amount
+
+	# Depois ocupa os slots vazios.
+	for slot in slots:
+		if not slot.is_empty():
+			continue
+
+		slot.item = Item.new(data)
+		remaining = slot.add(remaining)
+
+		if remaining == 0:
+			return amount
+
+	return amount - remaining

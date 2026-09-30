@@ -2,6 +2,13 @@ extends Control
 
 const SLOT_SCENE: PackedScene = preload("res://Systems/inventory/inventory_slot_ui.tscn")
 
+const WORLD_ITEM_SCENE: PackedScene = preload(
+	"res://Systems/world_items/world_item.tscn"
+)
+
+var drag_start_position: Vector2 = Vector2.ZERO
+var tracking_left_drag: bool = false
+
 @export var player: Player
 @onready var grid: GridContainer = $Panel/MarginContainer/GridContainer
 
@@ -133,11 +140,61 @@ func _return_held(inventory: Inventory) -> bool:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and not event.echo and event.keycode == KEY_I:
+			tracking_left_drag = false
 			_set_inventory_open(not visible)
 			get_viewport().set_input_as_handled()
 			return
-	if visible and event.is_action("space"):
+
+	if not visible:
+		return
+
+	if event.is_action("space"):
 		get_viewport().set_input_as_handled()
+		return
+
+	if event is InputEventMouseButton:
+		if event.button_index != MOUSE_BUTTON_LEFT:
+			return
+
+		if event.pressed:
+			drag_start_position = get_local_mouse_position()
+			tracking_left_drag = true
+			return
+
+		# A partir daqui, o botão esquerdo foi solto.
+		if not tracking_left_drag:
+			return
+
+		tracking_left_drag = false
+
+		if held.is_empty():
+			return
+
+		var distance: float = drag_start_position.distance_to(
+			get_local_mouse_position()
+		)
+
+		# Um clique curto continua usando o comportamento anterior.
+		if distance < 4.0:
+			return
+
+		var panel: Control = $Panel
+		var panel_rect := Rect2(Vector2.ZERO, panel.size)
+
+		if not panel_rect.has_point(panel.get_local_mouse_position()):
+			get_viewport().set_input_as_handled()
+			_drop_held_item()
+			return
+
+		# Soltar sobre um slot coloca o item nele.
+		for i in range(grid.get_child_count()):
+			var slot_ui := grid.get_child(i) as Control
+			var slot_rect := Rect2(Vector2.ZERO, slot_ui.size)
+
+			if slot_rect.has_point(slot_ui.get_local_mouse_position()):
+				get_viewport().set_input_as_handled()
+				_on_slot_clicked(i)
+				return
 
 func _set_inventory_open(open: bool) -> void:
 	var inventory: Inventory = _get_inventory()
@@ -153,4 +210,39 @@ func _set_inventory_open(open: bool) -> void:
 		player.direction = Vector2.ZERO
 		player.velocity = Vector2.ZERO
 		player.change_state("idle")
+	_refresh()
+
+func _drop_held_item() -> void:
+	if held.is_empty() or not is_instance_valid(player):
+		return
+
+	var world := player.get_parent() as Node2D
+
+	if world == null:
+		return
+
+	var drop := WORLD_ITEM_SCENE.instantiate() as WorldItem
+
+	if drop == null:
+		return
+
+	drop.item_data = held.item.data
+	drop.quantity = held.quantity
+
+	var direction: Vector2 = player.cardinal_direction.normalized()
+
+	if direction == Vector2.ZERO:
+		direction = Vector2.DOWN
+
+	var drop_position: Vector2 = (
+		player.global_position + direction * 32.0
+	)
+
+	drop.position = world.to_local(drop_position)
+	world.add_child(drop)
+
+	held.item = null
+	held.quantity = 0
+	origin_index = -1
+
 	_refresh()
