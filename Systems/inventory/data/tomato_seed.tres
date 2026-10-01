@@ -10,6 +10,7 @@ atlas = ExtResource("1_ytxvs")
 [resource]
 script = ExtResource("1_maybf")
 plant_data = ExtResource("2_rla4d")
+item_id = "tomato_seed"
 item_name = "Tomato"
 icon = SubResource("AtlasTexture_187gs")
 metadata/_custom_type_script = "uid://b0squ8r4vatam"

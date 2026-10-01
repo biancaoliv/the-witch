@@ -56,6 +56,7 @@ animations = [{
 
 [resource]
 script = ExtResource("1_1vni1")
+plant_id = "tomato"
 plant_name = "tomato"
 sprite_frames = SubResource("SpriteFrames_pxs8d")
 harvest_item = ExtResource("1_gqhpw")

@@ -11,5 +11,6 @@ region = Rect2(0, 0, 16, 16)
 [resource]
 script = ExtResource("1_cl7yo")
 plant_data = ExtResource("1_u8h0p")
+item_id = "corn_seed"
 item_name = "Semente de Milho"
 icon = SubResource("AtlasTexture_qwp5g")

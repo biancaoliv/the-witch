@@ -15,6 +15,7 @@ var can_pickup: bool = false
 
 
 func _ready() -> void:
+	add_to_group("world_items")
 	if item_data == null:
 		push_warning("WorldItem está sem ItemData.")
 		return
@@ -80,3 +81,24 @@ func _physics_process(_delta: float) -> void:
 			can_pickup = false
 			queue_free()
 			return
+
+func get_save_data() -> Dictionary:
+	if item_data == null or item_data.item_id.is_empty():
+		push_error("Item no chão sem Item Id.")
+		return {}
+
+	if quantity <= 0 or is_queued_for_deletion():
+		return {}
+
+	if ItemCatalog.get_item(item_data.item_id) != item_data:
+		push_error("Item no chão não corresponde ao catálogo.")
+		return {}
+
+	return {
+		"item_id": item_data.item_id,
+		"quantity": quantity,
+		"position": {
+			"x": global_position.x,
+			"y": global_position.y
+		}
+	}

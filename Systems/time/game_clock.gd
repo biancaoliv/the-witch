@@ -99,3 +99,14 @@ func advance_to_next_morning() -> void:
 	waiting_for_morning = false
 	_advancing_to_morning = false
 	morning_started.emit()
+
+func get_save_data() -> Dictionary:
+	return {
+		"day": day,
+		"season": season,
+		"year": year,
+		"total_days": total_days,
+		"minute_of_day": minute_of_day,
+		"elapsed": _elapsed,
+		"waiting_for_morning": waiting_for_morning
+	}

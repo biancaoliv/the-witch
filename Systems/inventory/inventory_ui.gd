@@ -246,3 +246,20 @@ func _drop_held_item() -> void:
 	origin_index = -1
 
 	_refresh()
+
+func prepare_for_save() -> bool:
+	var inventory: Inventory = _get_inventory()
+	if inventory == null:
+		return false
+
+	# Devolve o item do cursor ao inventário.
+	# Se não couber, coloca o restante no chão.
+	if not _return_held(inventory):
+		_drop_held_item()
+
+	if not held.is_empty():
+		push_error("Não foi possível guardar o item do cursor.")
+		return false
+
+	_set_inventory_open(false)
+	return not inventory.ui_open

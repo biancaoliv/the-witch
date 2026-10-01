@@ -1,5 +1,8 @@
 class_name ItemData extends Resource
 
+@export_category("Identificação")
+@export var item_id: String = ""
+
 @export_category("Informações")
 @export var item_name: String = ""
 @export var category: String = ""

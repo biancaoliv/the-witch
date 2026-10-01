@@ -10,6 +10,7 @@ region = Rect2(0, 0, 16, 16)
 [resource]
 script = ExtResource("1_18aa7")
 tool_type = 1
+item_id = "watering_can"
 item_name = "Regador"
 icon = SubResource("AtlasTexture_18aa7")
 max_stack = 1

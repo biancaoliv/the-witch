@@ -1,5 +1,8 @@
 class_name PlantData extends Resource
 
+@export_category("Identificação")
+@export var plant_id: String = ""
+
 
 @export_category("Informações")
 @export var plant_name: String = ""

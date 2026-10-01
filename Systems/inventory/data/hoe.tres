@@ -8,6 +8,7 @@ atlas = ExtResource("1_l5r8w")
 
 [resource]
 script = ExtResource("1_5urpl")
+item_id = "hoe"
 item_name = "Enxada"
 icon = SubResource("AtlasTexture_aq8wa")
 max_stack = 1

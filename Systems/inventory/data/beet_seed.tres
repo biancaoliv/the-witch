@@ -10,6 +10,7 @@ atlas = ExtResource("1_nuysf")
 [resource]
 script = ExtResource("1_m0r7g")
 plant_data = ExtResource("2_yejr7")
+item_id = "beet_seed"
 item_name = "Beterraba"
 icon = SubResource("AtlasTexture_rbnqg")
 metadata/_custom_type_script = "uid://b0squ8r4vatam"

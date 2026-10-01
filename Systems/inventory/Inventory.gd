@@ -303,3 +303,31 @@ func collect_item_data(data: ItemData, amount: int) -> int:
 			return amount
 
 	return amount - remaining
+
+func get_save_data() -> Dictionary:
+	var saved_slots: Array = []
+
+	for slot in slots:
+		if slot.is_empty():
+			saved_slots.append({})
+			continue
+
+		var data: ItemData = slot.item.data
+
+		if data == null or data.item_id.is_empty():
+			push_error("Não é possível salvar um item sem Item Id.")
+			return {}
+
+		if ItemCatalog.get_item(data.item_id) != data:
+			push_error("Item não corresponde ao catálogo: " + data.item_id)
+			return {}
+
+		saved_slots.append({
+			"item_id": data.item_id,
+			"quantity": slot.quantity
+		})
+
+	return {
+		"slots": saved_slots,
+		"selected_slot_index": selected_slot_index
+	}

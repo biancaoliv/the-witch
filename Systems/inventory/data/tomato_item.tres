@@ -9,6 +9,7 @@ region = Rect2(0, 32, 16, 16)
 
 [resource]
 script = ExtResource("1_lw8oi")
+item_id = "tomato"
 item_name = "Tomate"
 icon = SubResource("AtlasTexture_wmh17")
 energy = 10

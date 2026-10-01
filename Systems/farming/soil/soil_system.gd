@@ -194,3 +194,33 @@ func _on_morning_started() -> void:
 
 		soil.set_watered(false)
 		update_soil_visual(cell)
+
+func get_save_data() -> Dictionary:
+	var saved_cells: Array = []
+
+	for cell in soil_cells:
+		var soil: SoilCell = soil_cells[cell]
+		var plant_save: Dictionary = {}
+
+		if is_instance_valid(soil.plant):
+			if soil.plant.is_queued_for_deletion():
+				push_error("Aguarde a remoção da planta antes de salvar.")
+				return {}
+
+			plant_save = soil.plant.get_save_data()
+			if plant_save.is_empty():
+				return {}
+
+		saved_cells.append({
+			"x": cell.x,
+			"y": cell.y,
+			"state": int(soil.state),
+			"watered": soil.watered,
+			"fertilized": soil.fertilized,
+			"plant": plant_save
+		})
+
+	return {
+		"cells": saved_cells,
+		"last_processed_morning": last_processed_morning
+	}

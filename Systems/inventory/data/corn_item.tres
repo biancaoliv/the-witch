@@ -9,6 +9,7 @@ region = Rect2(0, 145, 16, 14)
 
 [resource]
 script = ExtResource("1_h6fvd")
+item_id = "corn"
 item_name = "Milho"
 icon = SubResource("AtlasTexture_wf7rj")
 sell_price = 10

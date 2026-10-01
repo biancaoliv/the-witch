@@ -129,3 +129,16 @@ func die() -> void:
 	if soil != null:
 		soil.state = SoilCell.SoilState.DEAD
 		soil.set_watered(false)
+
+func get_save_data() -> Dictionary:
+	if plant_data == null or plant_data.plant_id.is_empty():
+		push_error("Não é possível salvar uma planta sem Plant Id.")
+		return {}
+
+	return {
+		"plant_id": plant_data.plant_id,
+		"growth_days_completed": growth_days_completed,
+		"current_stage": current_stage,
+		"ready_to_harvest": ready_to_harvest,
+		"is_dead": is_dead
+	}
