@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="the_witch"
-run/main_scene="uid://dfmlup6vv1t2a"
+run/main_scene="res://UI/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
@@ -21,6 +21,8 @@ GameClock="*uid://by6otv1b0741c"
 ItemCatalog="*uid://ca8ak7ejjjn50"
 PlantCatalog="*uid://bu4br0p2qgpnq"
 SaveManager="*uid://bf3qhnjjkgcm3"
+
+PauseMenu="*res://UI/pause_menu.gd"
 
 [display]
 
@@ -87,3 +89,5 @@ space={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+
+

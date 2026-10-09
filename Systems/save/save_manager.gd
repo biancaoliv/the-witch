@@ -7,7 +7,10 @@ const WORLD_ITEM_SCENE: PackedScene = preload("res://Systems/world_items/world_i
 
 var _load_failed: bool = false
 var _starting: bool = true
-var _previous_clock_pause: bool = false
+const FARM_SCENE: String = "res://World/farm/farm.tscn"
+const MENU_SCENE: String = "res://UI/main_menu.tscn"
+var menu_error: String = ""
+var busy: bool = false
 
 
 func _ready() -> void:
@@ -16,9 +19,9 @@ func _ready() -> void:
 		CONNECT_DEFERRED
 	)
 	print("SaveManager pronto.")
-	_previous_clock_pause = GameClock.paused
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	GameClock.paused = true
-	call_deferred("_load_on_start")
+	call_deferred("_bootstrap")
 
 
 func has_save() -> bool:
@@ -169,25 +172,76 @@ func _on_morning_started() -> void:
 	else:
 		push_error("Falha no salvamento automático da manhã.")
 
-func _load_on_start() -> void:
-	if has_save():
-		var data: Dictionary = read_save()
-		if data.is_empty() or not _restore_game(data):
-			_load_failed = true
-			push_error("Não foi possível carregar. O arquivo salvo será preservado.")
-		else:
-			print("Partida carregada automaticamente.")
-	else:
-		var scene := get_tree().current_scene
-		var player := scene.get_node_or_null("Player") as Player if scene != null else null
-		if scene == null or player == null or not _wake_player(scene, player):
-			_load_failed = true
-			push_error("Configure WakePoint na fazenda antes de jogar.")
-		else:
-			print("Nenhum salvamento encontrado. Nova partida.")
-	_starting = false
-	GameClock.paused = _previous_clock_pause
+func _bootstrap() -> void:
+	var scene := get_tree().current_scene
+	if scene != null and scene.scene_file_path == FARM_SCENE:
+		# Mantém o teste direto da fazenda pelo editor.
+		await start_game(not has_save(), true)
 
+
+func start_game(new_game: bool, already_in_farm: bool = false) -> bool:
+	if busy:
+		return false
+	busy = true
+	menu_error = ""
+	_starting = true
+	_load_failed = false
+	GameClock.paused = true
+	var data: Dictionary = {}
+	if not new_game:
+		data = read_save()
+		if data.is_empty() or data.get("scene_path") != FARM_SCENE:
+			await _return_to_menu("Não foi possível ler esta partida. O salvamento foi preservado.")
+			return false
+
+	get_tree().paused = true
+	if not already_in_farm:
+		var change_error: Error = get_tree().change_scene_to_file(FARM_SCENE)
+		if change_error != OK:
+			await _return_to_menu("Não foi possível abrir a fazenda.")
+			return false
+		await get_tree().scene_changed
+
+	var scene := get_tree().current_scene
+	var success: bool = false
+	if new_game:
+		var player := scene.get_node_or_null("Player") as Player
+		var soil := scene.get_node_or_null("SoilSystem") as SoilSystem
+		var initial_clock: Dictionary = {
+			"day": 1, "season": 0, "year": 1, "total_days": 0,
+			"minute_of_day": 360, "elapsed": 0.0, "waiting_for_morning": false
+		}
+		if player != null and soil != null and GameClock.load_save_data(initial_clock):
+			success = _wake_player(scene, player)
+			if success:
+				# Grava a manhã inicial apenas após preparar a nova partida.
+				_starting = false
+				success = save_game(player, soil)
+	else:
+		success = _restore_game(data)
+
+	if not success:
+		await _return_to_menu("Não foi possível iniciar a partida. O arquivo anterior foi preservado.")
+		return false
+	_starting = false
+	busy = false
+	get_tree().paused = false
+	GameClock.paused = false
+	print("Nova partida iniciada." if new_game else "Partida carregada.")
+	return true
+
+
+func _return_to_menu(message: String) -> void:
+	menu_error = message
+	_load_failed = true
+	GameClock.paused = true
+	var scene := get_tree().current_scene
+	if scene == null or scene.scene_file_path != MENU_SCENE:
+		var result: Error = get_tree().change_scene_to_file(MENU_SCENE)
+		if result == OK:
+			await get_tree().scene_changed
+	get_tree().paused = false
+	busy = false
 
 func _restore_game(data: Dictionary) -> bool:
 	var scene := get_tree().current_scene
@@ -277,3 +331,4 @@ func _wake_player(scene: Node, player: Player) -> bool:
 	player.velocity = Vector2.ZERO
 	player.change_state("idle")
 	return true
+
