@@ -8,6 +8,7 @@ const WORLD_ITEM_SCENE: PackedScene = preload(
 
 var drag_start_position: Vector2 = Vector2.ZERO
 var tracking_left_drag: bool = false
+var picked_on_press: bool = false
 
 @export var player: Player
 @onready var grid: GridContainer = $Panel/MarginContainer/GridContainer
@@ -57,7 +58,7 @@ func _refresh() -> void:
 	if is_instance_valid(cursor_slot):
 		cursor_slot.call("update_slot", held)
 		cursor_slot.visible = visible and not held.is_empty()
-		cursor_slot.position = get_local_mouse_position() + Vector2(8, 8)
+		cursor_slot.position = get_local_mouse_position() + Vector2(-4, -4)
 	if held.is_empty():
 		origin_index = -1
 
@@ -137,66 +138,81 @@ func _return_held(inventory: Inventory) -> bool:
 	return held.is_empty()
 
 
+func _slot_at_position(viewport_position: Vector2) -> int:
+	for i in range(grid.get_child_count()):
+		var slot_ui := grid.get_child(i) as Control
+		var local_position: Vector2 = slot_ui.get_global_transform_with_canvas().affine_inverse() * viewport_position
+		if Rect2(Vector2.ZERO, slot_ui.size).has_point(local_position):
+			return i
+	return -1
+
+
+func _outside_panel(viewport_position: Vector2) -> bool:
+	var panel: Control = $Panel
+	var local_position: Vector2 = panel.get_global_transform_with_canvas().affine_inverse() * viewport_position
+	return not Rect2(Vector2.ZERO, panel.size).has_point(local_position)
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and not event.echo and event.keycode == KEY_I:
 			tracking_left_drag = false
+			picked_on_press = false
 			_set_inventory_open(not visible)
 			get_viewport().set_input_as_handled()
 			return
 
 	if not visible:
 		return
-
 	if event.is_action("space"):
 		get_viewport().set_input_as_handled()
 		return
+	if not event is InputEventMouseButton:
+		return
 
-	if event is InputEventMouseButton:
-		if event.button_index != MOUSE_BUTTON_LEFT:
-			return
+	var index: int = _slot_at_position(event.position)
+	if event.button_index == MOUSE_BUTTON_RIGHT:
+		get_viewport().set_input_as_handled()
+		if event.pressed and index >= 0:
+			tracking_left_drag = false
+			picked_on_press = false
+			_on_slot_right_clicked(index)
+		return
+	if event.button_index != MOUSE_BUTTON_LEFT:
+		return
 
-		if event.pressed:
-			drag_start_position = get_local_mouse_position()
-			tracking_left_drag = true
-			return
+	# Um único caminho trata o clique; impede processamento duplicado na GUI.
+	get_viewport().set_input_as_handled()
+	if event.pressed:
+		drag_start_position = event.position
+		tracking_left_drag = true
+		picked_on_press = held.is_empty() and index >= 0
+		if index >= 0:
+			_on_slot_clicked(index)
+		picked_on_press = picked_on_press and not held.is_empty()
+		return
 
-		# A partir daqui, o botão esquerdo foi solto.
-		if not tracking_left_drag:
-			return
+	if not tracking_left_drag:
+		return
+	tracking_left_drag = false
+	var was_pickup: bool = picked_on_press
+	picked_on_press = false
+	if held.is_empty():
+		return
 
-		tracking_left_drag = false
+	if _outside_panel(event.position):
+		_drop_held_item()
+		return
 
-		if held.is_empty():
-			return
-
-		var distance: float = drag_start_position.distance_to(
-			get_local_mouse_position()
-		)
-
-		# Um clique curto continua usando o comportamento anterior.
-		if distance < 4.0:
-			return
-
-		var panel: Control = $Panel
-		var panel_rect := Rect2(Vector2.ZERO, panel.size)
-
-		if not panel_rect.has_point(panel.get_local_mouse_position()):
-			get_viewport().set_input_as_handled()
-			_drop_held_item()
-			return
-
-		# Soltar sobre um slot coloca o item nele.
-		for i in range(grid.get_child_count()):
-			var slot_ui := grid.get_child(i) as Control
-			var slot_rect := Rect2(Vector2.ZERO, slot_ui.size)
-
-			if slot_rect.has_point(slot_ui.get_local_mouse_position()):
-				get_viewport().set_input_as_handled()
-				_on_slot_clicked(i)
-				return
+	# Só deposita na soltura quando este gesto começou pegando uma pilha.
+	# Uma troca feita ao pressionar não deve ser desfeita ao soltar.
+	if was_pickup and drag_start_position.distance_to(event.position) >= 4.0:
+		if index >= 0:
+			_on_slot_clicked(index)
 
 func _set_inventory_open(open: bool) -> void:
+	tracking_left_drag = false
+	picked_on_press = false
 	var inventory: Inventory = _get_inventory()
 	if inventory == null:
 		return

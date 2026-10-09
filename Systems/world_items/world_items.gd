@@ -8,20 +8,28 @@ extends Node2D
 @export var jump_duration: float = 0.45
 
 var can_pickup: bool = false
+var restored_from_save: bool = false
 
 @onready var visual: Node2D = $Visual
 @onready var icon: Sprite2D = $Visual/Icon
 @onready var pickup_area: Area2D = $PickupArea
 
 
+
 func _ready() -> void:
 	add_to_group("world_items")
+
 	if item_data == null:
 		push_warning("WorldItem está sem ItemData.")
 		return
 
 	icon.texture = item_data.icon
-	_play_drop_animation()
+
+	if restored_from_save:
+		visual.position = Vector2.ZERO
+		can_pickup = true
+	else:
+		_play_drop_animation()
 
 
 func _play_drop_animation() -> void:
@@ -102,3 +110,47 @@ func get_save_data() -> Dictionary:
 			"y": global_position.y
 		}
 	}
+
+func prepare_from_save(data: Dictionary, world: Node2D) -> bool:
+	# Configura o item antes de adicioná-lo à cena.
+	if is_inside_tree() or not is_instance_valid(world):
+		return false
+
+	var saved_id: Variant = data.get("item_id")
+	var amount: Variant = data.get("quantity")
+	var saved_position: Variant = data.get("position")
+
+	if not saved_id is String:
+		return false
+
+	if not (amount is int or amount is float):
+		return false
+	if not is_finite(float(amount)):
+		return false
+	if float(amount) != floor(float(amount)):
+		return false
+	if amount < 1 or amount > 2147483647:
+		return false
+
+	if not saved_position is Dictionary:
+		return false
+
+	for axis in ["x", "y"]:
+		var value: Variant = saved_position.get(axis)
+		if not (value is int or value is float):
+			return false
+		if not is_finite(float(value)):
+			return false
+
+	var restored_data: ItemData = ItemCatalog.get_item(saved_id)
+	if restored_data == null:
+		return false
+
+	item_data = restored_data
+	quantity = int(amount)
+	position = world.to_local(Vector2(
+		float(saved_position["x"]),
+		float(saved_position["y"])
+	))
+	restored_from_save = true
+	return true

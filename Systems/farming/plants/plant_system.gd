@@ -168,4 +168,56 @@ func _on_plant_harvested(plant: Plant, cell: Vector2i) -> void:
 	soil_system.update_soil_visual(cell)
 	plant.queue_free()
 
+func restore_plant(cell: Vector2i, data: Dictionary) -> bool:
+	var soil: SoilCell = soil_system.get_soil(cell)
+	if soil == null or plant_scene == null:
+		return false
+
+	if is_instance_valid(soil.plant):
+		push_error("Já existe uma planta nesta célula.")
+		return false
+
+	var plant_id: Variant = data.get("plant_id")
+	if not plant_id is String:
+		return false
+
+	var saved_plant_data: PlantData = PlantCatalog.get_plant(plant_id)
+	if saved_plant_data == null:
+		return false
+
+	var instance := plant_scene.instantiate()
+	var restored := instance as Plant
+
+	if restored == null:
+		instance.free()
+		return false
+
+	restored.plant_data = saved_plant_data
+	restored.position = to_local(
+		farm_soil.to_global(farm_soil.map_to_local(cell))
+	)
+
+	add_child(restored)
+
+	# Valida e restaura antes de associar ao solo.
+	if not restored.load_save_data(data):
+		restored.free()
+		push_error("Dados inválidos da planta: " + plant_id)
+		return false
+
+	restored.soil = soil
+	soil.plant = restored
+
+	if restored.is_dead:
+		soil.state = SoilCell.SoilState.DEAD
+		soil.set_watered(false)
+	else:
+		soil.state = SoilCell.SoilState.PLANTED
+
+	restored.harvested.connect(
+		_on_plant_harvested.bind(cell)
+	)
+
+	soil_system.update_soil_visual(cell)
+	return true
 

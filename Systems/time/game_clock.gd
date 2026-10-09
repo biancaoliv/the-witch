@@ -110,3 +110,62 @@ func get_save_data() -> Dictionary:
 		"elapsed": _elapsed,
 		"waiting_for_morning": waiting_for_morning
 	}
+
+func load_save_data(data: Dictionary) -> bool:
+	var limits: Dictionary = {
+		"day": [1, DAYS_PER_SEASON],
+		"season": [Season.SPRING, Season.WINTER],
+		"year": [1, 999999],
+		"total_days": [0, 999999 * DAYS_PER_SEASON * 4],
+		"minute_of_day": [0, 1439]
+	}
+
+	for key in limits:
+		var value: Variant = data.get(key)
+
+		if not (value is int or value is float):
+			return false
+		if not is_finite(float(value)):
+			return false
+		if float(value) != floor(float(value)):
+			return false
+		if value < limits[key][0] or value > limits[key][1]:
+			return false
+
+	var elapsed: Variant = data.get("elapsed")
+	if not (elapsed is int or elapsed is float):
+		return false
+	if not is_finite(float(elapsed)):
+		return false
+	if elapsed < 0 or elapsed >= SECONDS_PER_STEP:
+		return false
+
+	var waiting: Variant = data.get("waiting_for_morning")
+	if not waiting is bool:
+		return false
+
+	var expected_days: int = (
+		(int(data["year"]) - 1) * DAYS_PER_SEASON * 4
+		+ int(data["season"]) * DAYS_PER_SEASON
+		+ int(data["day"]) - 1
+	)
+
+	if int(data["total_days"]) != expected_days:
+		push_error("Calendário salvo inconsistente.")
+		return false
+
+	if waiting and int(data["minute_of_day"]) != END_MINUTE:
+		return false
+
+	day = int(data["day"])
+	season = int(data["season"])
+	year = int(data["year"])
+	total_days = int(data["total_days"])
+	minute_of_day = int(data["minute_of_day"])
+	_elapsed = float(elapsed)
+	waiting_for_morning = waiting
+	_advancing_to_morning = false
+
+	# Atualiza o texto do calendário e a iluminação.
+	time_changed.emit(get_hour(), get_minute())
+	return true

@@ -134,3 +134,37 @@ func _on_day_ended() -> void:
 		" — ",
 		GameClock.get_date_text()
 	)
+
+func load_save_data(data: Dictionary) -> bool:
+	if inventory == null or wallet == null:
+		return false
+
+	
+	var saved_money: Variant = data.get("money")
+	var saved_inventory: Variant = data.get("inventory")
+
+	if not saved_inventory is Dictionary:
+		return false
+
+	if not (saved_money is int or saved_money is float):
+		return false
+	if not is_finite(float(saved_money)):
+		return false
+	if float(saved_money) != floor(float(saved_money)):
+		return false
+	if saved_money < 0 or saved_money > 2147483647:
+		return false
+
+	if not inventory.load_save_data(saved_inventory):
+		return false
+
+	wallet.balance = int(saved_money)
+	wallet.balance_changed.emit(wallet.balance)
+
+
+
+	direction = Vector2.ZERO
+	velocity = Vector2.ZERO
+	change_state("idle")
+	return true
+

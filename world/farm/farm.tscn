@@ -1110,3 +1110,6 @@ shape = SubResource("RectangleShape2D_yf5fn")
 position = Vector2(138, 409)
 color = Color(0.22352941, 1, 1, 1)
 polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
+
+[node name="WakePoint" type="Marker2D" parent="." unique_id=261325465]
+position = Vector2(463, 490)

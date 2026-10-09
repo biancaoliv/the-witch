@@ -32,3 +32,4 @@ func can_grow_in(season_index: int) -> bool:
 		return false
 
 	return (allowed_seasons & (1 << season_index)) != 0
+

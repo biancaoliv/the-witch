@@ -331,3 +331,61 @@ func get_save_data() -> Dictionary:
 		"slots": saved_slots,
 		"selected_slot_index": selected_slot_index
 	}
+
+func load_save_data(data: Dictionary) -> bool:
+	var saved_slots: Variant = data.get("slots")
+	if not saved_slots is Array:
+		return false
+
+	if saved_slots.size() != inventory_size:
+		push_error("O tamanho do inventário salvo é incompatível.")
+		return false
+
+	var restored_slots: Array[InventorySlot] = []
+
+	for entry in saved_slots:
+		if not entry is Dictionary:
+			return false
+
+		var slot := InventorySlot.new()
+
+		if not entry.is_empty():
+			var item_id: Variant = entry.get("item_id")
+			var amount: Variant = entry.get("quantity")
+
+			if not item_id is String:
+				return false
+			if not (amount is int or amount is float):
+				return false
+			if not is_finite(float(amount)):
+				return false
+			if float(amount) != floor(float(amount)):
+				return false
+
+			var item_data: ItemData = ItemCatalog.get_item(item_id)
+			if item_data == null:
+				return false
+			if amount < 1 or amount > item_data.max_stack:
+				push_error("Quantidade salva inválida: " + item_id)
+				return false
+
+			slot.item = Item.new(item_data)
+			slot.quantity = int(amount)
+
+		restored_slots.append(slot)
+
+	var selected: Variant = data.get("selected_slot_index")
+	if not (selected is int or selected is float):
+		return false
+	if not is_finite(float(selected)):
+		return false
+	if float(selected) != floor(float(selected)):
+		return false
+	if selected < 0 or selected >= restored_slots.size():
+		return false
+
+	# Só substitui o inventário após validar todos os slots.
+	slots = restored_slots
+	selected_slot_index = int(selected)
+	return true
+

@@ -132,13 +132,39 @@ func die() -> void:
 
 func get_save_data() -> Dictionary:
 	if plant_data == null or plant_data.plant_id.is_empty():
-		push_error("Não é possível salvar uma planta sem Plant Id.")
+		push_error("Planta sem Plant Id.")
 		return {}
-
 	return {
 		"plant_id": plant_data.plant_id,
 		"growth_days_completed": growth_days_completed,
-		"current_stage": current_stage,
-		"ready_to_harvest": ready_to_harvest,
 		"is_dead": is_dead
 	}
+
+
+func load_save_data(data: Dictionary) -> bool:
+	if not is_node_ready() or plant_data == null:
+		return false
+	if data.get("plant_id") != plant_data.plant_id:
+		return false
+	var days: Variant = data.get("growth_days_completed")
+	var dead: Variant = data.get("is_dead")
+	if not (days is int or days is float) or not dead is bool:
+		return false
+	if not is_finite(float(days)) or float(days) != floor(float(days)):
+		return false
+	if days < 0 or days > 2147483647:
+		return false
+	if sprite.sprite_frames == null:
+		return false
+	if sprite.sprite_frames.get_frame_count(sprite.animation) < maxi(1, plant_data.growth_stages):
+		return false
+
+	growth_days_completed = int(days)
+	is_dead = false
+	sprite.pause()
+	sprite.modulate = Color.WHITE
+	set_process_unhandled_input(true)
+	_update_growth_visual()
+	if dead:
+		die()
+	return true
